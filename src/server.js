@@ -108,6 +108,7 @@ app.get('*', async (req, res, next) => {
         // eslint-disable-next-line no-underscore-dangle
         styles.forEach(style => css.add(style._getCss()));
       },
+      store
     };
 
     const route = await UniversalRouter.resolve(routes, {
@@ -124,6 +125,7 @@ app.get('*', async (req, res, next) => {
     data.children = ReactDOM.renderToString(<App context={context}>{route.component}</App>);
     data.style = [...css].join('');
     data.script = assets.main.js;
+    data.state = context.store.getState();
     const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
 
     res.status(route.status || 200);
