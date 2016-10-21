@@ -29,6 +29,8 @@ import schema from './data/schema';
 import routes from './routes';
 import assets from './assets'; // eslint-disable-line import/no-unresolved
 import { port, auth } from './config';
+import configureStore from './store/configureStore';
+import setRuntimeVariable from './actions/runtime';
 
 const app = express();
 
@@ -85,6 +87,16 @@ app.use('/graphql', expressGraphQL(req => ({
 // -----------------------------------------------------------------------------
 app.get('*', async (req, res, next) => {
   try {
+
+    const store = configureStore({}, {
+        cookie: req.headers.cookie
+    });
+
+    store.dispatch(setRuntimeVariable({
+        name: 'initialNow',
+        value: Date.now()
+    }));
+
     const css = new Set();
 
     // Global (context) variables that can be easily accessed from any React component
