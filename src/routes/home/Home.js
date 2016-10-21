@@ -40,7 +40,7 @@ Home.propTypes = {
     title: PropTypes.string.isRequired,
     link: PropTypes.string.isRequired,
     contentSnippet: PropTypes.string,
-  })).isRequired,
+  })).isRequired
 };
 
 export default withStyles(s)(Home);
