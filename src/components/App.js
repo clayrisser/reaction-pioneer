@@ -8,7 +8,10 @@
  */
 
 import React, { PropTypes } from 'react';
-import bootstrap from 'bootstrap/dist/css/bootstrap.css?root=./node_modules/bootstrap/dist/'; // eslint-disable-line import/no-unresolved, max-len
+import bootstrap from 'bootstrap/dist/css/bootstrap.css?root=./node_modules/bootstrap/dist/css/';
+import mdBootstrap from 'mdbootstrap/css/mdb.css?root=./node_modules/mdbootstrap/css/';
+import animateCss from 'animate.css/animate.css?root=./node_modules/animate.css/';
+import fontAwesome from 'font-awesome/css/font-awesome.css?root=./node_modules/font-awesome/css/';
 
 const ContextType = {
   // Enables critical path CSS rendering
@@ -52,10 +55,16 @@ class App extends React.Component {
   componentWillMount() {
     const {insertCss} = this.props.context;
     this.removeBootstrap = insertCss(bootstrap);
+    this.removeMdBootstrap = insertCss(mdBootstrap);
+    this.removeAnimateCss = insertCss(animateCss);
+    this.removeFontAwesome = insertCss(fontAwesome);
   }
 
   componentWillUnmount() {
     this.removeBootstrap();
+    this.removeMdBootstrap();
+    this.removeAnimateCss();
+    this.removeFontAwesome();
   }
 
   render() {

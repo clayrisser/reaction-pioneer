@@ -18,10 +18,22 @@ import pkg from '../package.json';
  */
 async function copy({ watch } = {}) {
   const ncp = Promise.promisify(require('ncp'));
+  const mkdirp = Promise.promisify(require('mkdirp'));
 
   await Promise.all([
-    ncp('src/public', 'build/public'),
-    ncp('src/content', 'build/content'),
+    mkdirp('build/public/scripts/'),
+    mkdirp('build/public/fonts/font-awesome/')
+  ]);
+
+  await Promise.all([
+    ncp('src/public/', 'build/public/'),
+    ncp('src/content/', 'build/content/'),
+    ncp('node_modules/mdbootstrap/font/', 'build/public/fonts/'),
+    ncp('node_modules/font-awesome/fonts/', 'build/public/fonts/font-awesome/'),
+    cpFile('node_modules/jquery/dist/jquery.min.js', 'build/public/scripts/jquery.min.js'),
+    cpFile('node_modules/bootstrap/dist/js/bootstrap.min.js', 'build/public/scripts/bootstrap.min.js'),
+    cpFile('node_modules/mdbootstrap/js/mdb.min.js', 'build/public/scripts/mdb.min.js'),
+    cpFile('node_modules/tether/dist/js/tether.min.js', 'build/public/scripts/tether.min.js')
   ]);
 
   await fs.writeFile('./build/package.json', JSON.stringify({
@@ -29,8 +41,8 @@ async function copy({ watch } = {}) {
     engines: pkg.engines,
     dependencies: pkg.dependencies,
     scripts: {
-      start: 'node server.js',
-    },
+      start: 'node server.js'
+    }
   }, null, 2));
 
   if (watch) {
@@ -47,5 +59,9 @@ async function copy({ watch } = {}) {
     watcher.on('added', cp);
   }
 }
+
+function cpFile(source, destination) {
+    fs.createReadStream(source).pipe(fs.createWriteStream(destination));
+};
 
 export default copy;

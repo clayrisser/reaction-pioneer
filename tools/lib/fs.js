@@ -18,4 +18,12 @@ const makeDir = (name) => new Promise((resolve, reject) => {
   mkdirp(name, err => (err ? reject(err) : resolve()));
 });
 
-export default { writeFile, makeDir };
+const createReadStream = fs.createReadStream;
+const createWriteStream = fs.createWriteStream;
+
+export default {
+    writeFile,
+    makeDir,
+    createReadStream,
+    createWriteStream
+};
