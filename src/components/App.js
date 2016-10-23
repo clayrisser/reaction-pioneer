@@ -7,11 +7,10 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React, { PropTypes } from 'react';
-import bootstrap from 'bootstrap/scss/bootstrap.scss?root=./node_modules/bootstrap/scss/'; // eslint-disable-line import/no-unresolved, max-len
-// import mdBootstrap from 'mdbootstrap/sass/mdb.scss?root=./src/styles/mdbootstrap/sass/';
+import React, {PropTypes} from 'react';
+import bootstrap from '../styles/bootstrap/bootstrap.scss?root=./src/styles/bootstrap/';
 import animateCss from 'animate.css/animate.css?root=./node_modules/animate.css/';
-import fontAwesome from 'font-awesome/css/font-awesome.css?root=./node_modules/font-awesome/css/';
+import fontAwesome from '../styles/font-awesome/font-awesome.scss?root=./src/styles/font-awesome/';
 
 const ContextType = {
   // Enables critical path CSS rendering
@@ -55,14 +54,12 @@ class App extends React.Component {
   componentWillMount() {
     const {insertCss} = this.props.context;
     this.removeBootstrap = insertCss(bootstrap);
-  //  this.removeMdBootstrap = insertCss(mdBootstrap);
     this.removeAnimateCss = insertCss(animateCss);
     this.removeFontAwesome = insertCss(fontAwesome);
   }
 
   componentWillUnmount() {
     this.removeBootstrap();
- //   this.removeMdBootstrap();
     this.removeAnimateCss();
     this.removeFontAwesome();
   }

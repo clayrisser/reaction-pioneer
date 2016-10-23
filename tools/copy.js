@@ -22,17 +22,14 @@ async function copy({ watch } = {}) {
 
   await Promise.all([
     mkdirp('build/public/scripts/'),
-    mkdirp('build/public/font/font-awesome/')
   ]);
 
   await Promise.all([
     ncp('src/public/', 'build/public/'),
+    ncp('src/public/images/', 'build/public/images/'),
     ncp('src/content/', 'build/content/'),
-    ncp('node_modules/mdbootstrap/font/', 'build/public/font/'),
-    ncp('node_modules/font-awesome/fonts/', 'build/public/font/font-awesome/'),
     cpFile('node_modules/jquery/dist/jquery.min.js', 'build/public/scripts/jquery.min.js'),
     cpFile('node_modules/bootstrap/dist/js/bootstrap.min.js', 'build/public/scripts/bootstrap.min.js'),
-    cpFile('node_modules/mdbootstrap/js/mdb.min.js', 'build/public/scripts/mdb.min.js'),
     cpFile('node_modules/tether/dist/js/tether.min.js', 'build/public/scripts/tether.min.js')
   ]);
 

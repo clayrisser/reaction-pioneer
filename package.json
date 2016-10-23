@@ -28,7 +28,6 @@
     "jquery": "^3.1.1",
     "jsonwebtoken": "7.1.9",
     "markdown-it": "8.0.0",
-    "mdbootstrap": "^4.1.1",
     "node-fetch": "1.6.3",
     "normalize.css": "4.2.0",
     "passport": "0.3.2",

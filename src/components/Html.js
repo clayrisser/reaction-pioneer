@@ -35,10 +35,9 @@ function Html({ title, description, style, script, children }) {
         {analytics.google.trackingId &&
           <script src="https://www.google-analytics.com/analytics.js" async defer />
         }
-        <script src="../scripts/jquery.min.js"></script>
-        <script src="../scripts/tether.min.js"></script>
-        <script src="../scripts/bootstrap.min.js"></script>
-        <script src="../scripts/mdb.min.js"></script>
+        <script src="../../scripts/jquery.min.js"></script>
+        <script src="../../scripts/tether.min.js"></script>
+        <script src="../../scripts/bootstrap.min.js"></script>
       </body>
     </html>
   );
