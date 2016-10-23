@@ -12,24 +12,23 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Header.css';
 import Link from '../Link';
 import Navigation from '../Navigation';
-import logoUrl from './logo-small.png';
 
 function Header() {
-  return (
-    <div className={s.root}>
-      <div className={s.container}>
-        <Navigation className={s.nav} />
-        <Link className={s.brand} to="/">
-          <img src={logoUrl} width="38" height="38" alt="React" />
-          <span className={s.brandTxt}>Your Company</span>
-        </Link>
-        <div className={s.banner}>
-          <h1 className={s.bannerTitle}>React</h1>
-          <p className={s.bannerDesc}>Complex web apps made easy</p>
-        </div>
-      </div>
-    </div>
-  );
+    return (<div className={s.root}>
+        <nav className="navbar navbar-dark bg-primary">
+            <button className="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#collapseEx2">
+                <i className="fa fa-bars"></i>
+            </button>
+            <Link className="navbar-brand" to="/">Reaction</Link>
+            <div className="container">
+                <div className="collapse navbar-toggleable-xs" id="collapseEx2">
+                    <ul className="nav navbar-nav">
+                        <Navigation />
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>);
 }
 
 export default withStyles(s)(Header);

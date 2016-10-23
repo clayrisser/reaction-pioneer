@@ -8,8 +8,8 @@
  */
 
 import React, { PropTypes } from 'react';
-import bootstrap from 'bootstrap/dist/css/bootstrap.css?root=./node_modules/bootstrap/dist/css/';
-import mdBootstrap from 'mdbootstrap/css/mdb.css?root=./node_modules/mdbootstrap/css/';
+import bootstrap from 'bootstrap/scss/bootstrap.scss?root=./node_modules/bootstrap/scss/'; // eslint-disable-line import/no-unresolved, max-len
+// import mdBootstrap from 'mdbootstrap/sass/mdb.scss?root=./src/styles/mdbootstrap/sass/';
 import animateCss from 'animate.css/animate.css?root=./node_modules/animate.css/';
 import fontAwesome from 'font-awesome/css/font-awesome.css?root=./node_modules/font-awesome/css/';
 
@@ -55,14 +55,14 @@ class App extends React.Component {
   componentWillMount() {
     const {insertCss} = this.props.context;
     this.removeBootstrap = insertCss(bootstrap);
-    this.removeMdBootstrap = insertCss(mdBootstrap);
+  //  this.removeMdBootstrap = insertCss(mdBootstrap);
     this.removeAnimateCss = insertCss(animateCss);
     this.removeFontAwesome = insertCss(fontAwesome);
   }
 
   componentWillUnmount() {
     this.removeBootstrap();
-    this.removeMdBootstrap();
+ //   this.removeMdBootstrap();
     this.removeAnimateCss();
     this.removeFontAwesome();
   }
