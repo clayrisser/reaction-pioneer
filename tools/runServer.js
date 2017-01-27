@@ -45,7 +45,7 @@ function runServer(cb) {
 
   server = cp.spawn('node', [serverPath], {
     env: Object.assign({ NODE_ENV: 'development' }, process.env),
-    silent: false,
+    silent: false
   });
   if (cbIsPending) {
     server.once('exit', (code, signal) => {

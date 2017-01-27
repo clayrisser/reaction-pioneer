@@ -1,0 +1,395 @@
+ /*
+  * Primary Colors
+  * <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< */
+  $--primary-bg-color:  #47C7FF;
+  $--primary-h1-color:  #FFFFFF;
+  $--primary-h2-color:  #232B30;
+  $--primary-h3-color:  #C70030;
+  $--primary-h4-color:  #55284C;
+  $--primary-h5-color:  #003C6C;
+  $--primary-h6-color:  #FFFFFF;
+  $--primary-p-color:   #1D1F23;
+  $--primary-bgm-color: #3FB7E0;
+  $--primary-bgs-color: #00AD6F;
+  $--primary-bgi-color: #00829A;
+  $--primary-bgw-color: #FFC600;
+  $--primary-bgd-color: #DB2121;
+
+ /*
+  * Secondary Colors
+  * <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< */
+  $--secondary-bg-color:  #00829A;
+  $--secondary-h1-color:  #FFFFFF;
+  $--secondary-h2-color:  #232B30;
+  $--secondary-h3-color:  #E2D354;
+  $--secondary-h4-color:  #F7963C;
+  $--secondary-h5-color:  #31FFE1;
+  $--secondary-h6-color:  #1D1F23;
+  $--secondary-p-color:   #FFFFFF;
+  $--secondary-bgm-color: #004C5A;
+  $--secondary-bgp-color: #00AD6F;
+  $--secondary-bgi-color: #28E5D2;
+  $--secondary-bgw-color: #FF9933;
+  $--secondary-bgd-color: #AB162B;
+
+ /*
+  * Tertiary Colors
+  * <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< */
+  $--tertiary-bg-color:  #FDB813;
+  $--tertiary-h1-color:  #1D1F23;
+  $--tertiary-h2-color:  #FFFFFF;
+  $--tertiary-h3-color:  #004C5A;
+  $--tertiary-h4-color:  #AB162B;
+  $--tertiary-h5-color:  #003B4A;
+  $--tertiary-h6-color:  #003B4A;
+  $--tertiary-p-color:   #434343;
+  $--tertiary-bgm-color: #FFD740;
+  $--tertiary-bgp-color: #00829A;
+  $--tertiary-bgs-color: #00AD6F;
+  $--tertiary-bgi-color: #47C7FF;
+  $--tertiary-bgd-color: #AB162B;
+
+ /*
+  * Washout Colors
+  * <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< */
+  $--washout-bg-color:  #FFFFFF;
+  $--washout-h1-color:  #434343;
+  $--washout-h2-color:  #DB2121;
+  $--washout-h3-color:  #00829A;
+  $--washout-h4-color:  #434343;
+  $--washout-h5-color:  #C48BE8;
+  $--washout-h6-color:  #434343;
+  $--washout-p-color:   #434343;
+  $--washout-bgm-color: #F3F3F3;
+  $--washout-bgp-color: #AEFFF3;
+  $--washout-bgs-color: #C8FFBE;
+  $--washout-bgi-color: #A8D7F9;
+  $--washout-bgw-color: #FDFF9C;
+  $--washout-bgd-color: #FCCBD2;
+
+ /*
+  * Translucent Colors
+  * <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< */
+  $--translucent-bg-color:  rgba(255, 255, 255, 0.67);
+  $--translucent-h1-color:  #434343;
+  $--translucent-h2-color:  #DB2121;
+  $--translucent-h3-color:  #00829A;
+  $--translucent-h4-color:  #00AD6F;
+  $--translucent-h5-color:  #C48BE8;
+  $--translucent-h6-color:  #434343;
+  $--translucent-p-color:   #434343;
+  $--translucent-bgm-color: #F3F3F3;
+  $--translucent-bgp-color: #AEFFF3;
+  $--translucent-bgs-color: #C8FFBE;
+  $--translucent-bgi-color: #A8D7F9;
+  $--translucent-bgw-color: #FDFF9C;
+  $--translucent-bgd-color: #FCCBD2;
+
+ /*
+  * Inverse Colors
+  * <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< */
+  $--inverse-bg-color:  #232A30;
+  $--inverse-h1-color:  #FFFFFF;
+  $--inverse-h2-color:  #FFFFFF;
+  $--inverse-h3-color:  #FFFFFF;
+  $--inverse-h4-color:  #FFFFFF;
+  $--inverse-h5-color:  #FFFFFF;
+  $--inverse-h6-color:  #FFFFFF;
+  $--inverse-p-color:   #FFFFFF;
+  $--inverse-bgm-color: #FFD740;
+  $--inverse-bgp-color: #00829A;
+  $--inverse-bgs-color: #00AD6F;
+  $--inverse-bgi-color: #47C7FF;
+  $--inverse-bgd-color: #AB162B;
+
+ /*
+  * Black Colors
+  * <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< */
+  $--black-bg-color:  #000000;
+  $--black-h1-color:  #FFFFFF;
+  $--black-h2-color:  #FFFFFF;
+  $--black-h3-color:  #FFFFFF;
+  $--black-h4-color:  #FFFFFF;
+  $--black-h5-color:  #FFFFFF;
+  $--black-h6-color:  #FFFFFF;
+  $--black-p-color:   #FFFFFF;
+  $--black-bgm-color: #F3F3F3;
+  $--black-bgp-color: #AEFFF3;
+  $--black-bgs-color: #C8FFBE;
+  $--black-bgi-color: #A8D7F9;
+  $--black-bgw-color: #FDFF9C;
+  $--black-bgd-color: #FCCBD2;
+
+ /*
+  * Blue Colors
+  * <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< */
+  $--blue-bg-color:  #6CAADD;
+  $--blue-h1-color:  #FFFFFF;
+  $--blue-h2-color:  #FFFFFF;
+  $--blue-h3-color:  #FFFFFF;
+  $--blue-h4-color:  #FFFFFF;
+  $--blue-h5-color:  #FFFFFF;
+  $--blue-h6-color:  #FFFFFF;
+  $--blue-p-color:   #FFFFFF;
+  $--blue-bgm-color: #F3F3F3;
+  $--blue-bgp-color: #AEFFF3;
+  $--blue-bgs-color: #C8FFBE;
+  $--blue-bgi-color: #A8D7F9;
+  $--blue-bgw-color: #FDFF9C;
+  $--blue-bgd-color: #FCCBD2;
+
+ /*
+  * Primary Splash
+  * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+  .splash-primary {
+      background-color: $--primary-bg-color;
+      h1 {
+          color: $--primary-h1-color;
+      }
+      h2 {
+          color: $--primary-h2-color;
+      }
+      h3 {
+          color: $--primary-h3-color;
+      }
+      h4 {
+          color: $--primary-h4-color;
+      }
+      h5 {
+          color: $--primary-h5-color;
+      }
+      h6 {
+          color: $--primary-h6-color;
+      }
+      p {
+          color: $--primary-p-color;
+      }
+      button {
+//          background-color: $--primary-bgs-color;
+      }
+      a {
+          color: $--primary-p-color;
+      }
+  }
+
+ /*
+  * Secondary Splash
+  * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+  .splash-secondary {
+      background-color: $--secondary-bg-color;
+      h1 {
+          color: $--secondary-h1-color;
+      }
+      h2 {
+          color: $--secondary-h2-color;
+      }
+      h3 {
+          color: $--secondary-h3-color;
+      }
+      h4 {
+          color: $--secondary-h4-color;
+      }
+      h5 {
+          color: $--secondary-h5-color;
+      }
+      h6 {
+          color: $--secondary-h6-color;
+      }
+      p {
+          color: $--secondary-p-color;
+      }
+      button {
+          background-color: $--secondary-bgp-color;
+      }
+      a {
+          color: $--secondary-p-color;
+      }
+  }
+
+ /*
+  * Tertiary Splash
+  * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+  .splash-tertiary {
+      background-color: $--tertiary-bg-color;
+      h1 {
+          color: $--tertiary-h1-color;
+          font-weight: bold;
+      }
+      h2 {
+          color: $--tertiary-h2-color;
+      }
+      h3 {
+          color: $--tertiary-h3-color;
+      }
+      h4 {
+          color: $--tertiary-h4-color;
+      }
+      h5 {
+          color: $--tertiary-h5-color;
+      }
+      h6 {
+          color: $--tertiary-h6-color;
+          font-size: 10pt;
+      }
+      p {
+          color: $--primary-p-color;
+      }
+      button {
+          background-color: $--tertiary-bgs-color;
+      }
+  }
+
+ /*
+  * Washout Splash
+  * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+  .splash-washout {
+      background-color: $--washout-bg-color;
+      h1 {
+          color: $--washout-h1-color;
+      }
+      h2 {
+          color: $--washout-h2-color;
+      }
+      h3 {
+          color: $--washout-h3-color;
+      }
+      h4 {
+          color: $--washout-h4-color;
+      }
+      h5 {
+          color: $--washout-h5-color;
+      }
+      h6 {
+          color: $--washout-h6-color;
+      }
+      p {
+          color: $--primary-p-color;
+      }
+      button {
+          background-color: $--washout-bgs-color;
+      }
+  }
+
+ /*
+  * translucent splash
+  * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+  .splash-translucent {
+      background-color: $--translucent-bg-color;
+      h1 {
+          color: $--translucent-h1-color;
+      }
+      h2 {
+          color: $--translucent-h2-color;
+      }
+      h3 {
+          color: $--translucent-h3-color;
+      }
+      h4 {
+          color: $--translucent-h4-color;
+      }
+      h5 {
+          color: $--translucent-h5-color;
+      }
+      h6 {
+          color: $--translucent-h6-color;
+      }
+      p {
+          color: $--translucent-p-color;
+      }
+      button {
+          background-color: $--translucent-bgs-color;
+      }
+  }
+
+ /*
+  * inverse splash
+  * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+  .splash-inverse {
+      background-color: $--inverse-bg-color;
+      h1 {
+          color: $--inverse-h1-color;
+      }
+      h2 {
+          color: $--inverse-h2-color;
+      }
+      h3 {
+          color: $--inverse-h3-color;
+      }
+      h4 {
+          color: $--inverse-h4-color;
+      }
+      h5 {
+          color: $--inverse-h5-color;
+      }
+      h6 {
+          color: $--inverse-h6-color;
+      }
+      p {
+          color: $--inverse-p-color;
+      }
+      button {
+          background-color: $--inverse-bgs-color;
+      }
+  }
+
+ /*
+  * black splash
+  * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+  .splash-black {
+      background-color: $--black-bg-color;
+      h1 {
+          color: $--black-h1-color;
+      }
+      h2 {
+          color: $--black-h2-color;
+      }
+      h3 {
+          color: $--black-h3-color;
+      }
+      h4 {
+          color: $--black-h4-color;
+      }
+      h5 {
+          color: $--black-h5-color;
+      }
+      h6 {
+          color: $--black-h6-color;
+      }
+      p {
+          color: $--black-p-color;
+      }
+      button {
+          background-color: $--black-bgs-color;
+      }
+  }
+
+ /*
+  * black splash
+  * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+  .splash-blue {
+      background-color: $--blue-bg-color;
+      h1 {
+          color: $--blue-h1-color;
+      }
+      h2 {
+          color: $--blue-h2-color;
+      }
+      h3 {
+          color: $--blue-h3-color;
+      }
+      h4 {
+          color: $--blue-h4-color;
+      }
+      h5 {
+          color: $--blue-h5-color;
+      }
+      h6 {
+          color: $--blue-h6-color;
+      }
+      p {
+          color: $--blue-p-color;
+      }
+      button {
+          background-color: $--blue-bgs-color;
+      }
+  }

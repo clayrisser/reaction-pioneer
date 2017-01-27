@@ -17,10 +17,7 @@ export default {
   // Keep in mind, routes are evaluated in order
   children: [
     require('./home').default,
-    require('./contact').default,
-    require('./login').default,
-    require('./register').default,
-    require('./admin').default,
+    require('./privacyPolicy').default,
 
     // place new routes before...
     require('./content').default,
@@ -37,10 +34,10 @@ export default {
     } while (!route);
 
     // Provide default values for title, description etc.
-    route.title = `${route.title || 'Untitled Page'} - www.reactstarterkit.com`;
+    route.title = `${route.title || 'Untitled Page'} - groupthreads.com`;
     route.description = route.description || '';
 
     return route;
-  },
+  }
 
 };

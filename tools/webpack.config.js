@@ -93,7 +93,8 @@ const config = {
         test: /\.css/,
         exclude: [
           path.resolve(__dirname, '../node_modules/'),
-          path.resolve(__dirname, '../src/styles/')
+          path.resolve(__dirname, '../src/styles/'),
+          /flexboxgrid/
         ],
         loaders: [
           'isomorphic-style-loader',
@@ -165,6 +166,11 @@ const config = {
           name: DEBUG ? '[path][name].[ext]?[hash]' : '[hash].[ext]'
         }
       },
+      {
+        test: /\.css$/,
+        loader: 'style!css?modules',
+        include: /flexboxgrid/
+      }
     ]
   },
 

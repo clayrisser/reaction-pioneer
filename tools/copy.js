@@ -21,16 +21,14 @@ async function copy({ watch } = {}) {
   const mkdirp = Promise.promisify(require('mkdirp'));
 
   await Promise.all([
-    mkdirp('build/public/scripts/'),
+    mkdirp('build/public/styles/'),
+    mkdirp('build/public/scripts/')
   ]);
 
   await Promise.all([
     ncp('src/public/', 'build/public/'),
     ncp('src/public/images/', 'build/public/images/'),
-    ncp('src/content/', 'build/content/'),
-    cpFile('node_modules/jquery/dist/jquery.min.js', 'build/public/scripts/jquery.min.js'),
-    cpFile('node_modules/bootstrap/dist/js/bootstrap.min.js', 'build/public/scripts/bootstrap.min.js'),
-    cpFile('node_modules/tether/dist/js/tether.min.js', 'build/public/scripts/tether.min.js')
+    ncp('src/content/', 'build/content/')
   ]);
 
   await fs.writeFile('./build/package.json', JSON.stringify({

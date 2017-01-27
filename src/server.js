@@ -31,6 +31,7 @@ import assets from './assets'; // eslint-disable-line import/no-unresolved
 import { port, auth } from './config';
 import configureStore from './store/configureStore';
 import setRuntimeVariable from './actions/runtime';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 const app = express();
 
@@ -79,7 +80,7 @@ app.use('/graphql', expressGraphQL(req => ({
   schema,
   graphiql: true,
   rootValue: { request: req },
-  pretty: process.env.NODE_ENV !== 'production',
+  pretty: process.env.NODE_ENV !== 'production'
 })));
 
 //
@@ -108,12 +109,14 @@ app.get('*', async (req, res, next) => {
         // eslint-disable-next-line no-underscore-dangle
         styles.forEach(style => css.add(style._getCss()));
       },
-      store
+      store,
+      muiTheme: getMuiTheme(),
+      getHistory: () => {return {}}
     };
 
     const route = await UniversalRouter.resolve(routes, {
       path: req.path,
-      query: req.query,
+      query: req.query
     });
 
     if (route.redirect) {

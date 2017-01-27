@@ -9,44 +9,33 @@
 
 @import '../variables.css';
 
-.root {
-  background: #333;
-  color: #fff;
-}
-
 .container {
-  margin: 0 auto;
-  padding: 20px 15px;
-  max-width: var(--max-content-width);
-  text-align: center;
+    margin: 0 auto;
+    padding: 20px 15px;
+    max-width: $--max-content-width;
+    text-align: center;
 }
 
-.text {
-  color: rgba(255, 255, 255, 0.5);
+.footer {
+    padding: 60px 20px 40px 20px;
 }
 
-.textMuted {
-  composes: text;
-  color: rgba(255, 255, 255, 0.3);
+.footerCol {
+    padding: 0px 0px 20px 0px;
 }
 
-.spacer {
-  color: rgba(255, 255, 255, 0.3);
+.stamp {
+    width: 100px;
 }
 
-.text,
-.link {
-  padding: 2px 5px;
-  font-size: 1em;
+.socialIcon {
+    max-height: 40px;
 }
 
-.link,
-.link:active,
-.link:visited {
-  color: rgba(255, 255, 255, 0.6);
-  text-decoration: none;
+.copyright {
+    margin-top: 30px;
 }
 
-.link:hover {
-  color: rgba(255, 255, 255, 1);
+.contact {
+    width: 200px;
 }
