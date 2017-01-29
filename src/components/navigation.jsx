@@ -10,5 +10,9 @@ export default [
   {
     label: 'Usage',
     to: '/usage'
+  },
+  {
+    label: 'Login',
+    to: '/login'
   }
 ];

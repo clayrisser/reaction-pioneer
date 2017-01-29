@@ -19,6 +19,7 @@ export default {
     require('./home').default,
     require('./privacyPolicy').default,
     require('./usage').default,
+    require('./login').default,
 
     // place new routes before...
     require('./content').default,
