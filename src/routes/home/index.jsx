@@ -8,16 +8,16 @@
  */
 
 import React from 'react';
-import PrivacyPolicy from './PrivacyPolicy';
+import Home from './Home';
 
-const title = 'Privacy Policy';
+var title = 'GroupThreads';
 
 export default {
-  path: '/privacy-policy',
+  path: '/',
   action() {
     return {
       title: title,
-      component: <PrivacyPolicy title={title} />
+      component: <Home />
     };
   }
 };

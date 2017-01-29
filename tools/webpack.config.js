@@ -26,7 +26,7 @@ const AUTOPREFIXER_BROWSERS = [
 ];
 const GLOBALS = {
   'process.env.NODE_ENV': DEBUG ? '"development"' : '"production"',
-  __DEV__: DEBUG,
+  __DEV__: DEBUG
 };
 
 //
@@ -40,7 +40,7 @@ const config = {
   output: {
     path: path.resolve(__dirname, '../build/public/assets'),
     publicPath: '/assets/',
-    sourcePrefix: '  ',
+    sourcePrefix: '  '
   },
 
   module: {
@@ -69,8 +69,8 @@ const config = {
               'transform-react-constant-elements',
               'transform-react-inline-elements',
             ],
-          ],
-        },
+          ]
+        }
       },
       {
         test: /\.css/,
@@ -144,20 +144,24 @@ const config = {
         ]
       },
       {
+        test: /\.md$/,
+        loader: path.resolve(__dirname, './lib/markdown-loader.js')
+      },
+      {
         test: /\.json$/,
-        loader: 'json-loader',
+        loader: 'json-loader'
       },
       {
         test: /\.txt$/,
-        loader: 'raw-loader',
+        loader: 'raw-loader'
       },
       {
         test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)(\?\S*)?$/,
         loader: 'url-loader',
         query: {
           name: DEBUG ? '[path][name].[ext]?[hash]' : '[hash].[ext]',
-          limit: 10000,
-        },
+          limit: 10000
+        }
       },
       {
         test: /\.(eot|ttf|wav|mp3)(\?\S*)?$/,
@@ -192,7 +196,7 @@ const config = {
     chunks: VERBOSE,
     chunkModules: VERBOSE,
     cached: VERBOSE,
-    cachedAssets: VERBOSE,
+    cachedAssets: VERBOSE
   },
 
   postcss: function plugins(bundler) {
@@ -254,7 +258,7 @@ const clientConfig = extend(true, {}, config, {
 
   output: {
     filename: DEBUG ? '[name].js?[chunkhash]' : '[name].[chunkhash].js',
-    chunkFilename: DEBUG ? '[name].[id].js?[chunkhash]' : '[name].[id].[chunkhash].js',
+    chunkFilename: DEBUG ? '[name].[id].js?[chunkhash]' : '[name].[id].[chunkhash].js'
   },
 
   target: 'web',
@@ -270,7 +274,7 @@ const clientConfig = extend(true, {}, config, {
     new AssetsPlugin({
       path: path.resolve(__dirname, '../build'),
       filename: 'assets.js',
-      processOutput: x => `module.exports = ${JSON.stringify(x)};`,
+      processOutput: x => `module.exports = ${JSON.stringify(x)};`
     }),
 
     // Assign the module and chunk ids by occurrence count
@@ -289,8 +293,8 @@ const clientConfig = extend(true, {}, config, {
       new webpack.optimize.UglifyJsPlugin({
         compress: {
           screw_ie8: true, // jscs:ignore requireCamelCaseOrUpperCaseIdentifiers
-          warnings: VERBOSE,
-        },
+          warnings: VERBOSE
+        }
       }),
 
       // A plugin for a more aggressive chunk merging strategy
@@ -301,7 +305,7 @@ const clientConfig = extend(true, {}, config, {
 
   // Choose a developer tool to enhance debugging
   // http://webpack.github.io/docs/configuration.html#devtool
-  devtool: DEBUG ? 'source-map' : false,
+  devtool: DEBUG ? 'source-map' : false
 });
 
 //
@@ -315,7 +319,7 @@ const serverConfig = extend(true, {}, config, {
     path: path.resolve(__dirname, '../build'),
     filename: 'server.js',
     chunkFilename: 'server.[name].js',
-    libraryTarget: 'commonjs2',
+    libraryTarget: 'commonjs2'
   },
 
   target: 'node',
@@ -343,10 +347,10 @@ const serverConfig = extend(true, {}, config, {
     process: false,
     Buffer: false,
     __filename: false,
-    __dirname: false,
+    __dirname: false
   },
 
-  devtool: 'source-map',
+  devtool: 'source-map'
 });
 
 export default [clientConfig, serverConfig];

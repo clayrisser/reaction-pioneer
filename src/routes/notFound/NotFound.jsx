@@ -26,7 +26,7 @@ function NotFound({ title }) {
 }
 
 NotFound.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired
 };
 
 export default withStyles(s)(NotFound);

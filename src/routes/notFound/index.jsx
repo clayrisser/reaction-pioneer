@@ -8,16 +8,17 @@
  */
 
 import React from 'react';
-import PrivacyPolicy from './PrivacyPolicy';
+import NotFound from './NotFound';
 
-const title = 'Privacy Policy';
+const title = 'Page Not Found';
 
 export default {
-  path: '/privacy-policy',
+  path: '*',
   action() {
     return {
-      title: title,
-      component: <PrivacyPolicy title={title} />
+      title,
+      component: <NotFound title={title} />,
+      status: 404
     };
   }
 };

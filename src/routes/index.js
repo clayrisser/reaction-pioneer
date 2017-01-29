@@ -18,6 +18,7 @@ export default {
   children: [
     require('./home').default,
     require('./privacyPolicy').default,
+    require('./usage').default,
 
     // place new routes before...
     require('./content').default,
