@@ -11,15 +11,13 @@ import React, {Component, PropTypes, Children} from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Layout.css';
 import Footer from '../Footer';
+import Header from '../Header';
 
 class Layout extends Component {
   render() {
     return (<div className={s.root}>
       <div id="content-main">
         {Children.only(this.props.children)}
-      </div>
-      <div id="footer-main">
-        <Footer />
       </div>
     </div>);
   }

@@ -16,6 +16,7 @@ import splash from '../../styles/splash/splash.scss?root=./src/styles/splash/';
 import _ from 'lodash';
 import {options} from '../../config';
 import Header from '../Header';
+import Footer from '../Footer';
 
 const ContextType = {
   // Enables critical path CSS rendering
@@ -83,10 +84,9 @@ class App extends Component {
     // NOTE: If you need to add or modify header, footer etc. of the app,
     // please do that inside the Layout component.
     return (<div>
-      <div id="header-main">
-        <Header />
-      </div>
+      <Header />
       {cloneElement(Children.only(this.props.children), {})}
+      <Footer />
     </div>) ;
   }
 }

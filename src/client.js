@@ -32,7 +32,7 @@ const context = {
     const removeCss = styles.map(x => x._insertCss());
     return () => { removeCss.forEach(f => f()); };
   },
-  store: configureStore(window.APP_STATE, {history}),
+  store: configureStore({}),
   muiTheme: getMuiTheme(),
   getHistory: () => {
     return history;
@@ -140,7 +140,7 @@ async function onLocationChange(location) {
     // and whose action method returns anything other than `undefined`.
     const route = await UniversalRouter.resolve(routes, {
       path: location.pathname,
-      query: queryString.parse(location.search),
+      query: queryString.parse(location.search)
     });
 
     // Prevent multiple page renders during the routing process

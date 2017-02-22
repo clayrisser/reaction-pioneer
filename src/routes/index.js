@@ -7,6 +7,9 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
+import React from 'react';
+import App from '../components/App';
+
 /* eslint-disable global-require */
 
 // The top-level (parent) route
@@ -26,7 +29,7 @@ export default {
     require('./notFound').default,
   ],
 
-  async action({ next }) {
+  async action({ next, context }) {
     let route;
 
     // Execute each child route until one of them return the result

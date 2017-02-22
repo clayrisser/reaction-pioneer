@@ -18,12 +18,23 @@ const makeDir = (name) => new Promise((resolve, reject) => {
   mkdirp(name, err => (err ? reject(err) : resolve()));
 });
 
+const cpFile = (source, destination) => new Promise((resolve, reject) => {
+  fs.createReadStream(source).addListener('error', (err) => {
+    reject(err);
+  }).pipe(fs.createWriteStream(destination).addListener('error', (err) => {
+    reject(err);
+  }).addListener('finish', () => {
+    resolve();
+  }));
+});
+
 const createReadStream = fs.createReadStream;
 const createWriteStream = fs.createWriteStream;
 
 export default {
-    writeFile,
-    makeDir,
-    createReadStream,
-    createWriteStream
+  writeFile,
+  cpFile,
+  makeDir,
+  createReadStream,
+  createWriteStream
 };

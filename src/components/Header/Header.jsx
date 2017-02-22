@@ -29,8 +29,8 @@ class Header extends Component {
     }
   }
 
-  renderMobileAppBar() {
-    let appBarNav = navigation.map((item) => {
+  appBarNav() {
+    return navigation.map((item) => {
       var goTo = (item) => {
         history.push(item.to);
       }
@@ -38,25 +38,10 @@ class Header extends Component {
         <Tab key={item.label} label={item.label} className={s.tab} onActive={goTo.bind(this, item)} />
       );
     });
-    return (<div className={s.mobile}>
-      <AppBar>
-        <Tabs className={s.tabs}>
-          {appBarNav}
-        </Tabs>
-      </AppBar>
-    </div>);
   }
 
-  renderDesktopAppBar() {
-    let appBarNav = navigation.map((item) => {
-      var goTo = (item) => {
-        history.push(item.to);
-      }
-      return (
-        <Tab key={item.label} label={item.label} className={s.tab} onActive={goTo.bind(this, item)} />
-      );
-    });
-    return (<div className={s.desktop}>
+  render() {
+    return (<div className={s.root}>
       <AppBar>
         <div className={'col-md-2'}>
           <div className={cx('row', 'middle-md')} style={{height: '100%'}}>
@@ -68,16 +53,9 @@ class Header extends Component {
           </div>
         </div>
         <Tabs className={cx(s.tabs, 'col-md-10')}>
-          {appBarNav}
+          {this.appBarNav()}
         </Tabs>
       </AppBar>
-    </div>);
-  }
-
-  render() {
-    let appBar = this.state.mobile ? this.renderMobileAppBar() : this.renderDesktopAppBar();
-    return (<div className={s.root}>
-      {appBar}
       <NoScript>
         <div className={cx(s.noScript)}>
           <h5>

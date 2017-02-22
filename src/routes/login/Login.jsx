@@ -18,11 +18,11 @@ class Login extends Component {
 
   componentDidMount() {
     this.server = 'http://localhost:1337';
-    this.getToken().then((body) => {
-      if (body.package && body.package.token) this.setState({token: body.package.token});
-    }).catch((err) => {
-      console.log(err);
-    });
+    /* this.getToken().then((body) => {
+     *   if (body.package && body.package.token) this.setState({token: body.package.token});
+     * }).catch((err) => {
+     *   console.log(err);
+     * });*/
   }
 
   render() {
