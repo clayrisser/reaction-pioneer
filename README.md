@@ -1,2 +1,2 @@
-# public-website
-GroupThreads public website
+# reaction
+An Isomorphic ReactJS framework with SASS and Redux integration.
