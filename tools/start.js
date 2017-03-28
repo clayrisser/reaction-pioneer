@@ -77,6 +77,7 @@ function runServer(serverPath) {
       process.stdout.write(data);
       if (!!match) {
         server.stdout.removeListener('data', onStdOut);
+        server.stdout.on('data', (data) => process.stdout.write(data));
         if (resolve) {
           resolvePending = false;
           resolve(match[1]);

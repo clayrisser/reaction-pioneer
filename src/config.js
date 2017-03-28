@@ -1,4 +1,5 @@
 const config = {
+  title: 'Reaction',
   environment: {
     port: 8888
   }

@@ -26,11 +26,14 @@ const config = {
     chunkModules: VERBOSE,
     cached: VERBOSE,
     cachedAssets: VERBOSE
+  },
+  resolve: {
+    extensions: ['.js', '.jsx']
   }
 };
 
 const clientConfig = _.merge({}, config, {
-  entry: './client.jsx',
+  entry: './core/client.jsx',
   target: 'web',
   output: {
     path: path.resolve(__dirname, '../dist/'),
@@ -58,7 +61,7 @@ const clientConfig = _.merge({}, config, {
 });
 
 const serverConfig = _.merge({}, config, {
-  entry: './server.jsx',
+  entry: './core/server.jsx',
   target: 'node',
   externals: [nodeExternals()],
   output: {
@@ -75,6 +78,8 @@ const serverConfig = _.merge({}, config, {
           cacheDirectory: DEBUG,
           babelrc: false,
           presets: [
+            'react',
+            'es2015',
             'node5'
           ]
         })
