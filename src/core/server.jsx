@@ -9,14 +9,18 @@ import Html from './Html';
 import config from '../config';
 import logger from '../../tools/logger';
 import routes from '../routes';
+import configureStore from '../redux/configureStore';
 
 const app = express();
+
+const context = {
+  store: configureStore()
+};
 
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('*', async (req, res) => {
   try {
-    const context = {};
     const router = new UniversalRouter(routes);
     const route = await router.resolve({
       path: req.path,
@@ -26,7 +30,7 @@ app.get('*', async (req, res) => {
       res.redirect(route.status || 302, route.redirect);
       return;
     }
-    const children = ReactDOMServer.renderToString(<App>{route.component}</App>);
+    const children = ReactDOMServer.renderToString(<App context={context}>{route.component}</App>);
     const html = ReactDOMServer.renderToStaticMarkup(<Html>
       {children}
     </Html>);

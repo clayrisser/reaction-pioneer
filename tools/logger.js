@@ -1,4 +1,4 @@
-let winston = require('winston');
+var winston = require('winston');
 
 module.exports = new winston.Logger({
   level: 'info',

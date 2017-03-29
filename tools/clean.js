@@ -1,10 +1,11 @@
-let fs = require('fs-extra');
-let logger = require('./logger');
+var fs = require('fs-extra');
 
-module.exports = function clean() {
-  fs.removeSync('./.tmp/');
-  fs.removeSync('./dist/');
-  let info = 'cleaned';
-  logger.info(info);
-  return Promise.resolve(info);
+module.exports = {
+  name: 'clean',
+
+  job: () => {
+    fs.removeSync('./.tmp/');
+    fs.removeSync('./dist/');
+    return Promise.resolve('cleaned');
+  }
 };

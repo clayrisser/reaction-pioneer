@@ -15,6 +15,7 @@ class Html extends Component {
       </head>
       <body>
         <div id="app" dangerouslySetInnerHTML={{__html: this.props.children}} />
+        <script src="./client.js" />
       </body>
     </html>)
   }
