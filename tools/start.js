@@ -8,6 +8,9 @@ var logger = require('./logger');
 var _ = require('lodash');
 var run = require('./run');
 var clean = require('./clean');
+var copy = require('./copy');
+
+const DEBUG = !process.argv.includes('--release');
 
 module.exports = {
   name: 'start',
@@ -16,7 +19,8 @@ module.exports = {
 
 async function start() {
   await run(clean);
-  webpackConfig[0] = injectClientConfig(webpackConfig[0]);
+  await run(copy);
+  webpackConfig[0] = patchClientConfig(webpackConfig[0]);
   const bundler = webpack(webpackConfig);
   const wp = webpackMiddleware(bundler, {
     stats: webpackConfig[0].stats,
@@ -46,7 +50,7 @@ var handleServerBundleComplete = (middleware, stats) => {
   }, (err) => logger.error(err));
 };
 
-function injectClientConfig(clientConfig) {
+function patchClientConfig(clientConfig) {
   clientConfig.entry = ['webpack-hot-middleware/client'].concat(clientConfig.entry);
   clientConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
   clientConfig.plugins.push(new webpack.NoEmitOnErrorsPlugin());

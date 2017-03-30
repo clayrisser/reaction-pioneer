@@ -1,11 +1,11 @@
-var fs = require('fs-extra');
+var fs = require('fs-extra-promise');
 
 module.exports = {
   name: 'clean',
 
-  job: () => {
-    fs.removeSync('./.tmp/');
-    fs.removeSync('./dist/');
-    return Promise.resolve('cleaned');
+  job: async () => {
+    await fs.remove('./.tmp/');
+    await fs.remove('./dist/');
+    return 'cleaned';
   }
 };

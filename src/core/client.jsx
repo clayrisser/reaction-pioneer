@@ -13,7 +13,37 @@ const context = {
   store: configureStore()
 };
 
-console.log(context);
+const container = document.getElementById('app');
+
+let currentLocation = null;
+
+async function onLocationChange(location, action) {
+  currentLocation = location;
+  if (currentLocation.key !== location.key) return;
+  try {
+    const router = new UniversalRouter(routes);
+    const route = await router.resolve({
+      path: location.pathname,
+      query: queryString.parse(location.search)
+    });
+    if (route.redirect) {
+      history.replace(route.redirect);
+      return;
+    }
+    ReactDOM.render((<App context={context}>
+      {route.component}
+    </App>), container, onRenderComplete.bind(route, location));
+  } catch(err) {
+    console.error(err);
+  }
+}
+
+function onRenderComplete() {
+  console.log('render complete');
+}
+
+history.listen(onLocationChange);
+onLocationChange(history.location);
 
 /* const unconnectHitory = connectHistory(history, context.store);
  * 

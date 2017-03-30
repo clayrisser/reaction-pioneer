@@ -10,13 +10,13 @@ class Home extends Component {
   render() {
     return (<div>
       <h1>{this.props.title}</h1>
-      <p>I am home</p>
+      <p> i am homes</p>
       <Link to="/boo">hi</Link>
     </div>);
   }
 }
 
-Home.propType = {
+Home.propTypes = {
   title: PropTypes.string.isRequired
 }
 

@@ -7,10 +7,6 @@ class Link extends Component {
     this.state = {};
   }
 
-  componentDidMount() {
-    console.log('howdy');
-  }
-
   render() {
     return (<a href={this.props.to} onClick={this.handleClick.bind(this)}>
       {this.props.children}
@@ -18,15 +14,11 @@ class Link extends Component {
   }
 
   handleClick(e) {
-    console.log('hello');
-    /* e.preventDefault();*/
-    /* return false;*/
-    /* if (this.props.onClick) this.props.onClick(e);*/
-    /* if (this.isModifiedEvent(e) || !this.isLeftClickEvent(e)) return;*/
-    /* if (e.defaultPrevented === true) return;*/
-    /* e.nativeEvent.stopImmediatePropagation();*/
+    if (this.props.onClick) this.props.onClick(e);
+    if (this.isModifiedEvent(e) || !this.isLeftClickEvent(e)) return;
+    if (e.defaultPrevented === true) return;
     e.preventDefault();
-    /* history.push(this.props.to);*/
+    history.push(this.props.to);
   }
 
   isModifiedEvent(e) {

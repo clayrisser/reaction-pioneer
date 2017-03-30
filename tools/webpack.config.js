@@ -2,6 +2,7 @@ var _ = require('lodash');
 var nodeExternals = require('webpack-node-externals');
 var path = require('path');
 var webpack = require('webpack');
+var AssetsPlugin = require('assets-webpack-plugin');
 
 const DEBUG = !process.argv.includes('--release');
 const VERBOSE = process.argv.includes('--verbose');
@@ -9,8 +10,8 @@ const VERBOSE = process.argv.includes('--verbose');
 const config = {
   context: path.resolve(__dirname, '../src/'),
   output: {
-    path: path.resolve(__dirname, '../dist/public/assets/'),
-    publicPath: 'assets'
+    path: path.resolve(__dirname, '../dist/public/'),
+    publicPath: '/'
   },
   module: {
     loaders: [
@@ -23,8 +24,7 @@ const config = {
           babelrc: false,
           presets: [
             'react',
-            'es2015',
-            'stage-0'
+            'es2015'
           ],
           plugins: DEBUG ? [
             'transform-runtime',
@@ -62,18 +62,36 @@ const clientConfig = _.merge({}, config, {
   target: 'web',
   output: {
     path: path.resolve(__dirname, '../dist/public/'),
-    filename: 'client.js'
+    filename: '[name].js'
   },
-  plugins: DEBUG ? [] : [
+  plugins: DEBUG ? [
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': DEBUG ? '"development"' : '"production"',
+      'process.env.BROWSER': true
+    }),
+    new AssetsPlugin({
+      path: path.resolve(__dirname, '../dist/'),
+      filename: 'assets.js',
+      processOutput: (assets) => `module.exports = ${JSON.stringify(assets)};`
+    })
+  ] : [
+    new AssetsPlugin({
+      path: path.resolve(__dirname, '../dist/'),
+      filename: 'assets.js',
+      processOutput: (assets) => `module.exports = ${JSON.stringify(assets)};`
+    }),
     new webpack.optimize.UglifyJsPlugin({
       include: /\.jsx?$/,
       minimize: true
     })
-  ]
+  ],
+  devtool: DEBUG ? 'source-map' : false
 });
 
 const serverConfig = _.merge({}, config, {
-  entry: './core/server.jsx',
+  entry: {
+    server: './core/server.jsx'
+  },
   target: 'node',
   node: {
     __dirname: false,
@@ -83,12 +101,16 @@ const serverConfig = _.merge({}, config, {
     process: false,
     Buffer: false
   },
-  devtool: 'source-map',
-  externals: [nodeExternals()],
+  externals: [
+    nodeExternals(),
+    /^\.\/assets$/
+  ],
   output: {
     path: path.resolve(__dirname, '../dist/'),
-    filename: 'server.js'
+    filename: 'server.js',
+    libraryTarget: 'commonjs2'
   },
+  devtool: 'source-map',
   plugins: []
 });
 

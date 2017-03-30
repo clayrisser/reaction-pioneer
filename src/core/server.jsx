@@ -10,6 +10,7 @@ import config from '../config';
 import logger from '../../tools/logger';
 import routes from '../routes';
 import configureStore from '../redux/configureStore';
+import assets from './assets';
 
 const app = express();
 
@@ -31,7 +32,7 @@ app.get('*', async (req, res) => {
       return;
     }
     const children = ReactDOMServer.renderToString(<App context={context}>{route.component}</App>);
-    const html = ReactDOMServer.renderToStaticMarkup(<Html>
+    const html = ReactDOMServer.renderToStaticMarkup(<Html client={assets.main.js}>
       {children}
     </Html>);
     return res.send(`<!doctype html>${html}`);

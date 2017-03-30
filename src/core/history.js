@@ -1,3 +1,3 @@
-import { createBrowserHistory } from 'history';
+import createHistory from 'history/createBrowserHistory';
 
-export default process.env.BROWSER && createBrowserHistory();
+export default process.env.BROWSER && createHistory();

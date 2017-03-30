@@ -15,10 +15,15 @@ class Html extends Component {
       </head>
       <body>
         <div id="app" dangerouslySetInnerHTML={{__html: this.props.children}} />
-        <script src="./client.js" />
+        <script src="main.js"></script>
       </body>
     </html>)
   }
 }
+
+Html.propTypes = {
+  script: PropTypes.string,
+  children: PropTypes.string
+};
 
 export default Html;
