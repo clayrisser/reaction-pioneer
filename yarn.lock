@@ -4136,6 +4136,10 @@ reduce-function-call@^1.0.1:
   dependencies:
     balanced-match "^0.4.2"
 
+redux-devtools-extension@^2.13.0:
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/redux-devtools-extension/-/redux-devtools-extension-2.13.0.tgz#c8300d72630c00999302526204d47c360cc0637f"
+
 redux-history@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/redux-history/-/redux-history-1.0.2.tgz#e55aa46f6e99040b2a6747361c28a000f3b65432"
