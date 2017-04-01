@@ -30,7 +30,12 @@ const config = {
         test: /\.scss$/,
         loaders: [
           'isomorphic-style-loader',
-          'css-loader?css-loader?localIdentName=[name]_[local]_[hash:base64:3]',
+          `css-loader?${JSON.stringify({
+            sourceMap: DEBUG,
+            modules: true,
+            localIdentName: DEBUG ? '[name]_[local]_[hash:base64:3]' : '[hash:base64:4]',
+            minimize: !DEBUG
+          })}`,
           'postcss-loader?config=./tools/postcss.config.js',
           'sass-loader'
         ]
@@ -73,6 +78,7 @@ const clientConfig = _.merge({}, config, {
           presets: [
             'react',
             ['es2015', { modules: false }],
+            'stage-0'
           ],
           plugins: _.flatten([[
             'transform-runtime'
@@ -147,6 +153,7 @@ const serverConfig = _.merge({}, config, {
           presets: [
             'react',
             'es2015',
+            'stage-0',
             'node5'
           ],
           plugins: _.flatten([[

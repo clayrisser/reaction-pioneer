@@ -2,10 +2,15 @@ import React, { Component, PropTypes } from 'react';
 import _ from 'lodash';
 
 class ErrorReporter extends Component {
-  constructor() {
-    super();
-    this.state = {};
+  static defaultProps = {
+    title: 'Error'
   }
+  static propTypes = {
+    error: PropTypes.object.isRequired,
+    title: PropTypes.string
+  }
+
+  state = {};
 
   renderStackItems(stackItems) {
     let style = {
@@ -78,11 +83,6 @@ class ErrorReporter extends Component {
     });
     return stackItems;
   }
-}
-
-ErrorReporter.propTypes = {
-  error: PropTypes.object.isRequired,
-  title: PropTypes.string.isRequired
 }
 
 export default ErrorReporter;

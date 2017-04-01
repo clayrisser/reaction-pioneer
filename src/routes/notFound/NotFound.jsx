@@ -1,10 +1,13 @@
 import React, { PropTypes, Component } from 'react';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import s from './NotFound.scss';
 
 class NotFound extends Component {
-  constructor() {
-    super();
-    this.state = {};
+  static propTypes = {
+    title: PropTypes.string.isRequired
   }
+
+  state = {};
 
   render() {
     return (<div>
@@ -15,7 +18,6 @@ class NotFound extends Component {
 }
 
 NotFound.propType = {
-  title: PropTypes.string.isRequired
 }
 
-export default NotFound;
+export default withStyles(s)(NotFound);

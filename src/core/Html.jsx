@@ -2,10 +2,16 @@ import React, { PropTypes, Component } from 'react';
 import config from '../config';
 
 class Html extends Component {
-  constructor() {
-    super();
-    this.state = {};
-  }
+  static defaultProps = {
+    scripts: [],
+    children: '<div></div>'
+  };
+  static propTypes = {
+    scripts: PropTypes.array,
+    children: PropTypes.string
+  };
+
+  state = {};
 
   render() {
     let style = {
@@ -26,15 +32,5 @@ class Html extends Component {
     </html>)
   }
 }
-
-Html.defaultProps = {
-  scripts: [],
-  children: '<div></div>'
-};
-
-Html.propTypes = {
-  scripts: PropTypes.array,
-  children: PropTypes.string
-};
 
 export default Html;

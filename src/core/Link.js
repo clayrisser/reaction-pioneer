@@ -2,14 +2,26 @@ import React, { Component, PropTypes } from 'react';
 import history from './history';
 
 class Link extends Component {
-  constructor() {
-    super();
-    this.state = {};
-  }
+  static defaultProps = {
+    onClick: null,
+    style: {},
+    to: '#'
+  };
+  static propTypes = {
+    children: PropTypes.node.isRequired,
+    onClick: PropTypes.func,
+    style: PropTypes.object,
+    to: PropTypes.string
+  };
+
+  state = {};
 
   render() {
-    return (<a href={this.props.to} onClick={this.handleClick.bind(this)}>
-      {this.props.children}
+    let style = _.assign({}, this.props.style);
+    let to = this.props.to;
+    let children = this.props.children;
+    return (<a href={to} style={style} onClick={this.handleClick.bind(this)}>
+      {children}
     </a>);
   }
 
@@ -29,12 +41,5 @@ class Link extends Component {
     return e.button === 0;
   }
 }
-
-Link.propTypes = {
-  children: PropTypes.node,
-  onClick: PropTypes.func,
-  style: PropTypes.object,
-  to: PropTypes.string.isRequired
-};
 
 export default Link;
