@@ -1,21 +1,11 @@
-var moment = require('moment');
-var winston = require('winston');
+const moment = require('moment');
+const winston = require('winston');
+const logger = require('./logger').noLabel;
 
-var settings = {
+const settings = {
   dateFormat: 'HH:MM:ss.SSS',
   diffBy: 'milliseconds'
-}
-
-var logger = new winston.Logger({
-  level: 'info',
-  transports: [
-    new (winston.transports.Console)({
-      formatter: (options) => {
-        return options.message;
-      }
-    })
-  ]
-});
+};
 
 var run = function(task, options) {
   const start = moment();
@@ -26,12 +16,12 @@ var run = function(task, options) {
     logger.info(`[${end.format(settings.dateFormat)}] Finished '${task.name}${options ? `(${options})` : ''} after ${time} ms'`);
     return res;
   });
-}
+};
 
 module.exports = run;
 
 if (require.main === module && process.argv.length > 2) {
-  var task = require(`./${process.argv[process.argv.length - 1]}.js`);
+  var task = require(`./${process.argv[2]}.js`);
   run(task).catch((err) => {
     logger.error(err);
     process.exit(1);

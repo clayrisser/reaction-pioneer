@@ -1,21 +1,16 @@
-var webpack = require('webpack');
-var webpackMiddleware = require('webpack-middleware');
-var webpackHotMiddleware = require('webpack-hot-middleware');
-var webpackConfig = require('./webpack.config.js');
-var runServer = require('./runServer');
-var browserSync = require('browser-sync');
-var logger = require('./logger');
-var _ = require('lodash');
-var run = require('./run');
-var clean = require('./clean');
-var copy = require('./copy');
+const _ = require('lodash');
+const browserSync = require('browser-sync');
+const webpack = require('webpack');
+const webpackHotMiddleware = require('webpack-hot-middleware');
+const webpackMiddleware = require('webpack-middleware');
+const clean = require('./clean');
+const copy = require('./copy');
+const logger = require('./logger').withLabel;
+const run = require('./run');
+const runServer = require('./runServer');
+const webpackConfig = require('./webpack.config.js');
 
 const DEBUG = !process.argv.includes('--release');
-
-module.exports = {
-  name: 'start',
-  job: start
-};
 
 async function start() {
   await run(clean);
@@ -30,12 +25,17 @@ async function start() {
   const hotMiddleware = webpackHotMiddleware(bundler.compilers[0]);
   var middleware = [wp, hotMiddleware];
   bundler.plugin('done', (stats) => {
-    handleServerBundleComplete(middleware, stats);
+    handleBundleComplete(middleware, stats);
   });
 }
 
-var handleServerBundleComplete = (middleware, stats) => {
-  handleServerBundleComplete = (middleware, stats) => {
+module.exports = {
+  name: 'start',
+  job: start
+};
+
+var handleBundleComplete = (middleware, stats) => {
+  handleBundleComplete = (middleware, stats) => {
     !stats.stats[1].compilation.errors.length && runServer('./dist/server.js');
   };
   runServer('./dist/server.js').then((host) => {
@@ -44,8 +44,7 @@ var handleServerBundleComplete = (middleware, stats) => {
       proxy: {
         target: host,
         middleware: middleware
-      },
-      files: ['dist/content/**/*.*']
+      }
     });
   }, (err) => logger.error(err));
 };

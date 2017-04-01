@@ -15,14 +15,20 @@ class Html extends Component {
       </head>
       <body>
         <div id="app" dangerouslySetInnerHTML={{__html: this.props.children}} />
-        <script src="main.js"></script>
+        {this.props.scripts.map((script) => (<script key={script} src={script} />))}
+        <style type="text/css">${[...this.props.css].join('')}</style>
       </body>
     </html>)
   }
 }
 
+Html.defaultProps = {
+  scripts: [],
+  children: '<div></div>'
+};
+
 Html.propTypes = {
-  script: PropTypes.string,
+  scripts: PropTypes.array,
   children: PropTypes.string
 };
 

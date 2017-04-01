@@ -1,8 +1,22 @@
-var winston = require('winston');
+const winston = require('winston');
 
-module.exports = new winston.Logger({
-  level: 'info',
-  transports: [
-    new (winston.transports.Console)()
-  ]
-});
+const VERBOSE = process.argv.includes('--verbose');
+
+module.exports = {
+  withLabel: new winston.Logger({
+    level: VERBOSE ? 'silly' : 'info',
+    transports: [
+      new (winston.transports.Console)()
+    ]
+  }),
+  noLabel: new winston.Logger({
+    level: VERBOSE ? 'silly' : 'info',
+    transports: [
+      new (winston.transports.Console)({
+        formatter: (options) => {
+          return options.message;
+        }
+      })
+    ]
+  })
+};

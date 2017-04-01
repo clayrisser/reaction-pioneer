@@ -1,18 +1,21 @@
-var webpack = require('webpack');
-var clean = require('./clean');
-var webpackConfig = require('./webpack.config.js');
-var run = require('./run');
+const webpack = require('webpack');
+const clean = require('./clean');
+const logger = require('./logger').noLabel;
+const run = require('./run');
+const webpackConfig = require('./webpack.config.js');
+
+async function build() {
+  await run(clean);
+  return new Promise((resolve, reject) => {
+    webpack(webpackConfig).run((err, stats) => {
+      if (err) reject(err);
+      logger.info(stats.toString(webpackConfig[0].stats));
+      resolve('built');
+    });
+  });
+}
 
 module.exports = {
   name: 'build',
-
-  job: async () => {
-    await run(clean);
-    return new Promise((resolve, reject) => {
-      webpack(webpackConfig).run((err) => {
-        if (err) reject(err);
-        resolve('built');
-      });
-    });
-  }
+  job: build
 };

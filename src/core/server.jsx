@@ -4,26 +4,30 @@ import ReactDOMServer from 'react-dom/server';
 import UniversalRouter from 'universal-router';
 import express from 'express';
 import path from 'path';
+import PrettyError from 'pretty-error';
 import App from '../components/App';
 import Html from './Html';
 import config from '../config';
-import logger from '../../tools/logger';
+import { withLabel as logger, noLabel as loggerNoLabel } from '../../tools/logger';
 import routes from '../routes';
 import configureStore from '../redux/configureStore';
 import assets from './assets';
+import ErrorReporter from './ErrorReporter';
 
 const app = express();
 
+let css = new Set();
 const context = {
+  insertCss: (...styles) => styles.forEach(style => css.add(style._getCss())),
   store: configureStore()
 };
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('*', async (req, res) => {
+app.get('*', async (req, res, next) => {
   try {
-    const router = new UniversalRouter(routes);
-    const route = await router.resolve({
+    let router = new UniversalRouter(routes);
+    let route = await router.resolve({
       path: req.path,
       query: req.query
     });
@@ -31,14 +35,27 @@ app.get('*', async (req, res) => {
       res.redirect(route.status || 302, route.redirect);
       return;
     }
-    const children = ReactDOMServer.renderToString(<App context={context}>{route.component}</App>);
-    const html = ReactDOMServer.renderToStaticMarkup(<Html client={assets.main.js}>
-      {children}
-    </Html>);
+    let children = ReactDOMServer.renderToString(<App context={context}>{route.component}</App>);
+    let scripts = ['./client.js'];
+    let html = ReactDOMServer.renderToStaticMarkup(<Html scripts={scripts} css={[...css].join('')}>{children}</Html>);
     return res.send(`<!doctype html>${html}`);
   } catch (err) {
-    return logger.error(err);
+    next(err);
   }
+});
+
+app.use((err, req, res, next) => {
+  let prettyError = new PrettyError();
+  prettyError.skipNodeFiles();
+  prettyError.skipPackage('express');
+  loggerNoLabel.error(prettyError.render(err));
+  let title = 'Internal Server Error';
+  let children = ReactDOMServer.renderToString(<ErrorReporter title={title} error={err} />);
+  let html = ReactDOMServer.renderToStaticMarkup(<Html title={title} css={[...css].join('')}>
+    {children}
+  </Html>);
+  res.status(err.status || 500);
+  res.send(`<!doctype html>${html}`);
 });
 
 app.listen(config.environment.port, () => {

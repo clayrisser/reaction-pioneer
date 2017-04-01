@@ -6,15 +6,22 @@ import { connectHistory } from 'redux-history';
 import App from '../components/App';
 import configureStore from '../redux/configureStore';
 import UniversalRouter from 'universal-router';
-import routes from '../routes';
 import queryString from 'query-string';
+import ErrorReporter from './ErrorReporter';
+import RedboxReact from 'redbox-react';
+import deepForceUpdate from 'react-deep-force-update';
+let routes = require('../routes').default;
 
 const context = {
+  insertCss: (...styles) => {
+    const removeCss = styles.map(x => x._insertCss());
+    return () => { removeCss.forEach(f => f()); };
+  },
   store: configureStore()
 };
 
-const container = document.getElementById('app');
-
+let container = document.getElementById('app');
+let appInstance = null;
 let currentLocation = null;
 
 async function onLocationChange(location, action) {
@@ -30,11 +37,12 @@ async function onLocationChange(location, action) {
       history.replace(route.redirect);
       return;
     }
-    ReactDOM.render((<App context={context}>
+    appInstance = ReactDOM.render((<App context={context}>
       {route.component}
     </App>), container, onRenderComplete.bind(route, location));
   } catch(err) {
-    console.error(err);
+    handleError(err, `Error: ${err.message}`);
+    if (action && currentLocation.key === location.key) window.location.reload();
   }
 }
 
@@ -42,22 +50,27 @@ function onRenderComplete() {
   console.log('render complete');
 }
 
-history.listen(onLocationChange);
-onLocationChange(history.location);
+function handleError(err, title) {
+  console.error(err);
+  appInstance = null;
+  document.title = title;
+  ReactDOM.render(<RedboxReact error={err} />, container);
+}
 
-/* const unconnectHitory = connectHistory(history, context.store);
- * 
- * let currentLocation = history.location;
- * 
- * console.log(currentLocation);
- * 
- * history.listen(async (location) => {
- *   const router = new UniversalRouter(routes);
- *   const route = await router.resolve({
- *     path: location.pathname,
- *     query: queryString.parse(location.search)
- *   });
- *   if (currentLocation.key !== location.key) return;
- *   if (route.redirect) history.replace(route.redirect);
- *   ReactDOM.render(<App context={context}>{route.component}</App>);
- * });*/
+if (module.hot) {
+  module.hot.accept('../routes', () => {
+    routes = require('../routes').default;
+    if (appInstance) {
+      try {
+        deepForceUpdate(appInstance);
+      } catch (err) {
+        handleError(err, `Hot Update Error: ${err.message}`);
+      }
+    }
+    onLocationChange(currentLocation);
+  });
+}
+
+history.listen(onLocationChange);
+window.addEventListener('error', (e) => handleError(e.error, `Runtime Error: ${e.error.message}`));
+onLocationChange(history.location);

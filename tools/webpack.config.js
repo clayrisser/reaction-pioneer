@@ -1,11 +1,22 @@
-var _ = require('lodash');
-var nodeExternals = require('webpack-node-externals');
-var path = require('path');
-var webpack = require('webpack');
-var AssetsPlugin = require('assets-webpack-plugin');
+const _ = require('lodash');
+const nodeExternals = require('webpack-node-externals');
+const path = require('path');
+const webpack = require('webpack');
+const AssetsPlugin = require('assets-webpack-plugin');
 
-const DEBUG = !process.argv.includes('--release');
+const DEBUG = !process.argv.includes('--release') && !process.argv.includes('build');
 const VERBOSE = process.argv.includes('--verbose');
+const AUTOPREFIXER_BROWSERS = [
+  'Android 2.3',
+  'Android >= 4',
+  'Chrome >= 35',
+  'Firefox >= 31',
+  'Explorer >= 9',
+  'iOS >= 7',
+  'Opera >= 12',
+  'Safari >= 7.1',
+
+];
 
 const config = {
   context: path.resolve(__dirname, '../src/'),
@@ -16,27 +27,13 @@ const config = {
   module: {
     loaders: [
       {
-        test: /\.jsx?$/,
-        include: [path.resolve(__dirname, '../src/')],
-        loader: 'babel-loader',
-        options: JSON.stringify({
-          cacheDirectory: DEBUG,
-          babelrc: false,
-          presets: [
-            'react',
-            'es2015'
-          ],
-          plugins: DEBUG ? [
-            'transform-runtime',
-            'babel-plugin-transform-async-to-generator'
-          ] : [
-            'transform-runtime',
-            'babel-plugin-transform-async-to-generator',
-            'transform-react-remove-prop-types',
-            'transform-react-constant-elements',
-            'transform-react-inline-elements'
-          ]
-        })
+        test: /\.scss$/,
+        loaders: [
+          'isomorphic-style-loader',
+          'css-loader?css-loader?localIdentName=[name]_[local]_[hash:base64:3]',
+          'postcss-loader?config=./tools/postcss.config.js',
+          'sass-loader'
+        ]
       }
     ]
   },
@@ -62,9 +59,34 @@ const clientConfig = _.merge({}, config, {
   target: 'web',
   output: {
     path: path.resolve(__dirname, '../dist/public/'),
-    filename: '[name].js'
+    filename: 'client.js'
   },
-  plugins: DEBUG ? [
+  module: {
+    loaders: _.flatten([config.module.loaders, [
+      {
+        test: /\.jsx?$/,
+        include: [path.resolve(__dirname, '../src/')],
+        loader: 'babel-loader',
+        options: JSON.stringify({
+          cacheDirectory: DEBUG,
+          babelrc: false,
+          presets: [
+            'react',
+            ['es2015', { modules: false }],
+          ],
+          plugins: _.flatten([[
+            'transform-runtime'
+          ], DEBUG ? [] : [
+            'babel-plugin-transform-async-to-generator',
+            'transform-react-remove-prop-types',
+            'transform-react-constant-elements',
+            'transform-react-inline-elements'
+          ]])
+        })
+      }
+    ]])
+  },
+  plugins: _.flatten([[
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': DEBUG ? '"development"' : '"production"',
       'process.env.BROWSER': true
@@ -73,18 +95,33 @@ const clientConfig = _.merge({}, config, {
       path: path.resolve(__dirname, '../dist/'),
       filename: 'assets.js',
       processOutput: (assets) => `module.exports = ${JSON.stringify(assets)};`
-    })
-  ] : [
-    new AssetsPlugin({
-      path: path.resolve(__dirname, '../dist/'),
-      filename: 'assets.js',
-      processOutput: (assets) => `module.exports = ${JSON.stringify(assets)};`
+    }),
+
+  ], DEBUG ? [] : [
+    new webpack.LoaderOptionsPlugin({
+      minimize: true,
+      debug: false
     }),
     new webpack.optimize.UglifyJsPlugin({
       include: /\.jsx?$/,
-      minimize: true
-    })
-  ],
+      minimize: true,
+      comments: false,
+      compress: {
+        warnings: false,
+        screw_ie8: true,
+        conditionals: true,
+        unused: true,
+        comparisons: true,
+        sequences: true,
+        dead_code: true,
+        evaluate: true,
+        if_return: true,
+        join_vars: true,
+        drop_console: true
+      }
+    }),
+    new webpack.optimize.AggressiveMergingPlugin()
+  ]]),
   devtool: DEBUG ? 'source-map' : false
 });
 
@@ -93,6 +130,36 @@ const serverConfig = _.merge({}, config, {
     server: './core/server.jsx'
   },
   target: 'node',
+  output: {
+    path: path.resolve(__dirname, '../dist/'),
+    filename: 'server.js',
+    libraryTarget: 'commonjs2'
+  },
+  module: {
+    loaders: _.flatten([config.module.loaders, [
+      {
+        test: /\.jsx?$/,
+        include: [path.resolve(__dirname, '../src/')],
+        loader: 'babel-loader',
+        options: JSON.stringify({
+          cacheDirectory: DEBUG,
+          babelrc: false,
+          presets: [
+            'react',
+            'es2015',
+            'node5'
+          ],
+          plugins: _.flatten([[
+            'transform-runtime'
+          ], DEBUG ? [] : [
+            'transform-react-remove-prop-types',
+            'transform-react-constant-elements',
+            'transform-react-inline-elements'
+          ]])
+        })
+      }
+    ]])
+  },
   node: {
     __dirname: false,
     __filename: false,
@@ -105,13 +172,8 @@ const serverConfig = _.merge({}, config, {
     nodeExternals(),
     /^\.\/assets$/
   ],
-  output: {
-    path: path.resolve(__dirname, '../dist/'),
-    filename: 'server.js',
-    libraryTarget: 'commonjs2'
-  },
-  devtool: 'source-map',
-  plugins: []
+  devtool: DEBUG ? 'source-map' : false,
+  plugins: _.flatten([[], DEBUG ? [] : []])
 });
 
 module.exports = [clientConfig, serverConfig];
