@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import { locationReducer } from 'redux-history';
+import location from './location';
 
 export default combineReducers({
-  location: locationReducer
+  location: location
 });

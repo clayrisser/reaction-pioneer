@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import history from './history';
+import history from '../core/history';
+import _ from 'lodash';
 
 class Link extends Component {
   static defaultProps = {

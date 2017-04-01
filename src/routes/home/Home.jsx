@@ -14,7 +14,7 @@ class Home extends Component {
   render() {
     return (<div className={s.root}>
       <Layout>
-        I am home
+        I am <Link to="boo">home</Link>
       </Layout>
     </div>);
   }

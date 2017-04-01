@@ -2,7 +2,6 @@ import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import history from './history';
-import { connectHistory } from 'redux-history';
 import App from './App';
 import configureStore from '../redux/configureStore';
 import UniversalRouter from 'universal-router';
@@ -11,6 +10,7 @@ import ErrorReporter from './ErrorReporter';
 import RedboxReact from 'redbox-react';
 import deepForceUpdate from 'react-deep-force-update';
 import FastClick from 'fastclick';
+import { updateLocation } from '../redux/actions/location';
 let routes = require('../routes').default;
 
 class Client {
@@ -25,19 +25,33 @@ class Client {
   appInstance = null;
   currentLocation = null;
   scrollPositionsHistory = {};
+  ignoreDispatch = false;
 
   constructor() {
+    let store = this.context.store;
     FastClick.attach(document.body);
     if (window.history && 'scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
     }
-    history.listen(this.onLocationChange);
+    history.listen(this.onLocationChange.bind(this));
     window.addEventListener('error', (e) => this.handleError(e.error, `Runtime Error: ${e.error.message}`));
     this.onLocationChange(history.location);
     this.hotReloading();
+    store.subscribe(() => {
+      let state = store.getState();
+      if (state.location.pathname !== history.location.pathname) {
+        this.ignoreDispatch = true;
+        history.push(state.location.pathname);
+      }
+    });
   }
 
   async onLocationChange(location, action) {
+    if (!this.ignoreDispatch) {
+      this.context.store.dispatch(updateLocation(location));
+    } else {
+      this.ignoreDispatch = false;
+    }
     this.updateScrollPostion();
     this.currentLocation = location;
     if (this.currentLocation.key !== location.key) return;
@@ -110,7 +124,6 @@ class Client {
   }
 
   handleError(err, title) {
-    console.error(err);
     this.appInstance = null;
     document.title = title;
     ReactDOM.render(<RedboxReact error={err} />, this.container);

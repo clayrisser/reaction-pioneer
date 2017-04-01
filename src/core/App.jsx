@@ -3,7 +3,7 @@ import { loadStyles, unmountStyles } from './styles';
 
 const contextTypes = {
   insertCss: PropTypes.func.isRequired,
-  store: PropTypes.object
+  store: PropTypes.object.isRequired
 }
 
 class App extends Component {
@@ -23,17 +23,13 @@ class App extends Component {
     unmountStyles();
   }
 
-  renderChildren() {
-    return Children.only(this.props.children);
-  }
-
   getChildContext() {
     return this.props.context;
   }
 
   render() {
     return (<div style={{height: '100%'}}>
-      {this.renderChildren()}
+      {this.props.children}
     </div>);
   }
 }
