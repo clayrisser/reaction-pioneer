@@ -17,7 +17,4 @@ class NotFound extends Component {
   }
 }
 
-NotFound.propType = {
-}
-
 export default withStyles(s)(NotFound);

@@ -30,7 +30,7 @@ class ErrorReporter extends Component {
         margin: '0px'
       }
     }
-    return stackItems.map((item) => (<div key={item.name}>
+    return stackItems.map((item, i) => (<div key={i}>
       <div style={style.name}>
         {item.name}
       </div>

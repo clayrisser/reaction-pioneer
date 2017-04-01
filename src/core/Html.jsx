@@ -15,17 +15,33 @@ class Html extends Component {
 
   render() {
     let style = {
-      padding: '0px',
-      margin: '0px',
-      height: '100%'
+      app: {
+        padding: '0px',
+        margin: '0px',
+        height: '100%',
+        width: '100%'
+      },
+      body: {
+        padding: '0px',
+        margin: '0px',
+        height: '100%',
+        width: '100%'
+      },
+      html: {
+        padding: '0px',
+        margin: '0px',
+        height: '100%',
+        width: '100%',
+        position: 'fixed'
+      }
     };
-    return (<html style={style}>
+    return (<html style={style.html}>
       <head>
         <meta charSet="utf-8" />
         <title>{config.title}</title>
       </head>
-      <body style={style}>
-        <div id="app" style={style} dangerouslySetInnerHTML={{__html: this.props.children}} />
+      <body style={style.body}>
+        <div id="app" style={style.app} dangerouslySetInnerHTML={{__html: this.props.children}} />
         {this.props.scripts.map((script) => (<script key={script} src={script} />))}
         <style type="text/css">${[...this.props.css].join('')}</style>
       </body>
