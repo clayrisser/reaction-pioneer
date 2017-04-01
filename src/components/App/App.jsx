@@ -25,7 +25,7 @@ class App extends Component {
   }
 
   render() {
-    return (<div>
+    return (<div style={{height: '100%'}}>
       {this.renderChildren()}
     </div>);
   }

@@ -46,9 +46,7 @@ async function onLocationChange(location, action) {
   }
 }
 
-function onRenderComplete() {
-  console.log('render complete');
-}
+function onRenderComplete() {}
 
 function handleError(err, title) {
   console.error(err);
