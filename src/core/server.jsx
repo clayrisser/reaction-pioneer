@@ -49,7 +49,7 @@ class Server {
           return;
         }
         let children = ReactDOMServer.renderToString(<App context={this.context}>{route.component}</App>);
-        let scripts = ['./client.js'];
+        let scripts = ['./client.js', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'];
         let html = ReactDOMServer.renderToStaticMarkup(<Html scripts={scripts} css={[...this.css].join('')}>{children}</Html>);
         return res.send(`<!doctype html>${html}`);
       } catch (err) {
