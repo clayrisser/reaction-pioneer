@@ -6,17 +6,6 @@ const AssetsPlugin = require('assets-webpack-plugin');
 
 const DEBUG = !process.argv.includes('--release') && !process.argv.includes('build');
 const VERBOSE = process.argv.includes('--verbose');
-const AUTOPREFIXER_BROWSERS = [
-  'Android 2.3',
-  'Android >= 4',
-  'Chrome >= 35',
-  'Firefox >= 31',
-  'Explorer >= 9',
-  'iOS >= 7',
-  'Opera >= 12',
-  'Safari >= 7.1',
-
-];
 
 const config = {
   context: path.resolve(__dirname, '../src/'),

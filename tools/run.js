@@ -13,8 +13,10 @@ var run = function(task, options) {
   return task.job(options).then((res) => {
     const end = moment();
     const time = end.diff(start, settings.diffBy);
-    logger.info(`[${end.format(settings.dateFormat)}] Finished '${task.name}${options ? `(${options})` : ''} after ${time} ms'`);
+    logger.info(`[${end.format(settings.dateFormat)}] Finished '${task.name}${options ? `(${options})` : ''}' after ${time} ms`);
     return res;
+  }).catch((err) => {
+    logger.error(err);
   });
 };
 

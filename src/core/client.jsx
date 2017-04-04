@@ -59,7 +59,8 @@ class Client {
       let router = new UniversalRouter(routes);
       let route = await router.resolve({
         path: location.pathname,
-        query: queryString.parse(location.search)
+        query: queryString.parse(location.search),
+        context: this.context
       });
       if (route.redirect) {
         history.replace(route.redirect);

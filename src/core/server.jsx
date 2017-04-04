@@ -41,7 +41,8 @@ class Server {
         let router = new UniversalRouter(routes);
         let route = await router.resolve({
           path: req.path,
-          query: req.query
+          query: req.query,
+          context: this.context
         });
         if (route.redirect) {
           res.redirect(route.status || 302, route.redirect);

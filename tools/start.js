@@ -14,7 +14,6 @@ const DEBUG = !process.argv.includes('--release');
 
 async function start() {
   await run(clean);
-  await run(copy);
   webpackConfig[0] = patchClientConfig(webpackConfig[0]);
   const bundler = webpack(webpackConfig);
   const wp = webpackMiddleware(bundler, {
@@ -34,10 +33,11 @@ module.exports = {
   job: start
 };
 
-var handleBundleComplete = (middleware, stats) => {
+var handleBundleComplete = async (middleware, stats) => {
   handleBundleComplete = (middleware, stats) => {
     !stats.stats[1].compilation.errors.length && runServer('./dist/server.js');
   };
+  await run(copy);
   runServer('./dist/server.js').then((host) => {
     const bs = browserSync.create();
     bs.init({
