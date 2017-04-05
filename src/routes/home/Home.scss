@@ -1,0 +1,57 @@
+/**
+ * React Starter Kit (https://www.reactstarterkit.com/)
+ *
+ * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.txt file in the root directory of this source tree.
+ */
+
+@import '../../components/variables.css';
+
+.root {
+  padding: 0px 0px 0px 0px;
+}
+
+.sectionOne h1 {
+  max-width: 640px;
+}
+
+.sectionOne img {
+  width: 100%;
+  max-width: 240px;
+}
+
+.sectionOne .requestQuoteButton {
+  border-radius: 100%;
+  transition: all .2s ease-out;
+}
+
+.sectionOne .requestQuoteButton:hover {
+  -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.6);
+  -moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.6);
+  box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.6);
+}
+
+.sectionTwo h1 {
+  font-weight: bold;
+}
+
+.sectionTwo h3 {
+  font-weight: bold;
+}
+
+.sectionTwo p {
+  text-align: left;
+}
+
+.sectionTwo img {
+  width: 100%;
+  max-width: 180px;
+}
+
+.sectionThree img {
+  width: 100%;
+  border-radius: 100%;
+  max-width: 380px;
+}
