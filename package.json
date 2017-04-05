@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.23.0",
+    "bootstrap": "4.0.0-alpha.6",
     "express": "^4.15.2",
     "fastclick": "^1.0.6",
     "history": "^4.6.1",
