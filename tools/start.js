@@ -8,11 +8,11 @@ const copy = require('./copy');
 const logger = require('./logger').withLabel;
 const run = require('./run');
 const runServer = require('./runServer');
-const webpackConfig = require('./webpack.config.js');
 
 const DEBUG = !process.argv.includes('--release');
 
 async function start() {
+  var webpackConfig = require('./webpack.config.js');
   await run(clean);
   webpackConfig[0] = patchClientConfig(webpackConfig[0]);
   const bundler = webpack(webpackConfig);

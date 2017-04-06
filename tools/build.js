@@ -3,9 +3,9 @@ const clean = require('./clean');
 const copy = require('./copy');
 const logger = require('./logger').noLabel;
 const run = require('./run');
-const webpackConfig = require('./webpack.config.js');
 
 async function build() {
+  var webpackConfig = require('./webpack.config.js');
   await run(clean);
   return new Promise((resolve, reject) => {
     try {
