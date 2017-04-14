@@ -15,14 +15,36 @@ const config = {
   },
   module: {
     loaders: [
-      {
+      { // local styles
         test: /\.scss$/,
+        exclude: [
+          path.resolve(__dirname, '../node_modules/'),
+          path.resolve(__dirname, '../src/styles/')
+        ],
         loaders: [
           'isomorphic-style-loader',
           `css-loader?${JSON.stringify({
             sourceMap: DEBUG,
             modules: true,
             localIdentName: DEBUG ? '[name]_[local]_[hash:base64:3]' : '[hash:base64:4]',
+            minimize: !DEBUG
+          })}`,
+          'postcss-loader?config=./tools/postcss.config.js',
+          'sass-loader'
+        ]
+      },
+      { // global styles
+        test: /\.scss$/,
+        include: [
+          path.resolve(__dirname, '../node_modules/'),
+          path.resolve(__dirname, '../src/styles/')
+        ],
+        loaders: [
+          'isomorphic-style-loader',
+          `css-loader?${JSON.stringify({
+            sourceMap: DEBUG,
+            modules: true,
+            localIdentName: '[local]',
             minimize: !DEBUG
           })}`,
           'postcss-loader?config=./tools/postcss.config.js',
