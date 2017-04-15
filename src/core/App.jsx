@@ -1,4 +1,4 @@
-import React, { PropTypes, Component, Children } from 'react';
+import React, { PropTypes, Component, Children, cloneElement } from 'react';
 import { loadStyles, unmountStyles } from './styles';
 
 const contextTypes = {
@@ -27,9 +27,13 @@ class App extends Component {
     return this.props.context;
   }
 
+  renderChildren() {
+    return cloneElement(Children.only(this.props.children), {});
+  }
+
   render() {
     return (<div style={{height: '100%'}}>
-      {this.props.children}
+      {this.renderChildren()}
     </div>);
   }
 }
