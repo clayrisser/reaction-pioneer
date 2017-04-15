@@ -1,5 +1,8 @@
-import React, { PropTypes, Component, Children } from 'react';
+import React, { Children, Component, PropTypes, cloneElement } from 'react';
 import { loadStyles, unmountStyles } from './styles';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import muiTheme from '../styles/muiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 const contextTypes = {
   insertCss: PropTypes.func.isRequired,
@@ -27,9 +30,15 @@ class App extends Component {
     return this.props.context;
   }
 
+  renderChildren() {
+    return cloneElement(Children.only(this.props.children), {});
+  }
+
   render() {
     return (<div style={{height: '100%'}}>
-      {this.props.children}
+      <MuiThemeProvider muiTheme={getMuiTheme(muiTheme)}>
+        {this.renderChildren()}
+      </MuiThemeProvider>
     </div>);
   }
 }

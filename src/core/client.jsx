@@ -1,15 +1,16 @@
 import 'babel-polyfill';
+import FastClick from 'fastclick';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import history from './history';
-import App from './App';
-import configureStore from '../redux/configureStore';
-import UniversalRouter from 'universal-router';
-import queryString from 'query-string';
-import ErrorReporter from './ErrorReporter';
 import RedboxReact from 'redbox-react';
+import UniversalRouter from 'universal-router';
 import deepForceUpdate from 'react-deep-force-update';
-import FastClick from 'fastclick';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import queryString from 'query-string';
+import App from './App';
+import ErrorReporter from './ErrorReporter';
+import configureStore from '../redux/configureStore';
+import history from './history';
 import { updateLocation } from '../redux/actions/location';
 let routes = require('../routes').default;
 
@@ -28,6 +29,7 @@ class Client {
   ignoreDispatch = false;
 
   constructor() {
+    injectTapEventPlugin();
     let store = this.context.store;
     FastClick.attach(document.body);
     if (window.history && 'scrollRestoration' in window.history) {

@@ -1,18 +1,19 @@
 import 'babel-polyfill';
+import PrettyError from 'pretty-error';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import UniversalRouter from 'universal-router';
 import express from 'express';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 import path from 'path';
-import PrettyError from 'pretty-error';
 import App from './App';
-import Html from './Html';
-import config from '../config';
-import { withLabel as logger, noLabel as loggerNoLabel } from '../../tools/logger';
-import routes from '../routes';
-import configureStore from '../redux/configureStore';
-import assets from './assets';
 import ErrorReporter from './ErrorReporter';
+import Html from './Html';
+import assets from './assets';
+import config from '../config';
+import configureStore from '../redux/configureStore';
+import routes from '../routes';
+import { withLabel as logger, noLabel as loggerNoLabel } from '../../tools/logger';
 
 class Server {
   app = express();
@@ -23,6 +24,9 @@ class Server {
   };
 
   constructor() {
+    injectTapEventPlugin();
+    global.navigator = global.navigator || {};
+    global.navigator.userAgent = global.navigator.userAgent || 'all';
     this.preMiddleware();
     this.routes();
     this.postMiddleware();
