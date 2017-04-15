@@ -62,6 +62,7 @@
     "build": "node ./tools/run build",
     "clean": "node ./tools/run clean",
     "copy": "node ./tools/run copy",
-    "start": "node ./tools/run start"
+    "start": "node ./tools/run start",
+    "package": "docker build -t homies/reaction -f ./deployment/Dockerfile ."
   }
 }
