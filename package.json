@@ -47,6 +47,7 @@
     "isomorphic-style-loader": "^1.1.0",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
+    "node-fetch": "^1.6.3",
     "query-string": "^4.3.2",
     "react": "^15.4.2",
     "react-bootstrap": "^0.30.8",
@@ -54,7 +55,8 @@
     "redux": "^3.6.0",
     "redux-devtools-extension": "^2.13.0",
     "redux-thunk": "^2.2.0",
-    "universal-router": "^3.0.0"
+    "universal-router": "^3.0.0",
+    "whatwg-fetch": "^2.0.3"
   },
   "scripts": {
     "build": "node ./tools/run build",
