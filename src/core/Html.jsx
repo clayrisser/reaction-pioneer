@@ -19,7 +19,8 @@ class Html extends Component {
         padding: '0px',
         margin: '0px',
         height: '100%',
-        width: '100%'
+        width: '100%',
+        overflow: 'scroll'
       },
       body: {
         padding: '0px',
