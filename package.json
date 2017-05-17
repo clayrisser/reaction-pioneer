@@ -8,6 +8,7 @@
   "license": "MIT",
   "devDependencies": {
     "assets-webpack-plugin": "^3.5.1",
+    "babel-cli": "^6.24.1",
     "babel-core": "^6.24.0",
     "babel-loader": "^6.4.1",
     "babel-plugin-react-transform": "^2.0.2",
@@ -23,6 +24,7 @@
     "browser-sync": "^2.18.8",
     "css-loader": "^0.28.0",
     "fs-extra-promise": "^0.4.1",
+    "murmur-hash": "^1.0.0",
     "node-sass": "^4.5.2",
     "postcss-loader": "^1.3.3",
     "react-transform-catch-errors": "^1.0.2",
@@ -59,10 +61,15 @@
     "whatwg-fetch": "^2.0.3"
   },
   "scripts": {
-    "build": "node ./tools/run build",
-    "clean": "node ./tools/run clean",
-    "copy": "node ./tools/run copy",
-    "start": "node ./tools/run start",
-    "package": "docker build -t homies/reaction -f ./deployment/Dockerfile ."
+    "build": "node ./node_modules/babel-cli/bin/babel-node ./tools/run build",
+    "clean": "node ./node_modules/babel-cli/bin/babel-node ./tools/run clean",
+    "copy": "node ./node_modules/babel-cli/bin/babel-node ./tools/run copy",
+    "start": "node ./node_modules/babel-cli/bin/babel-node ./tools/run start",
+    "package": "docker build -t homies/reaction -f ./Dockerfile ."
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
   }
 }

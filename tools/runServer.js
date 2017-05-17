@@ -1,8 +1,8 @@
-const childProcess = require('child_process');
+import childProcess from 'child_process';
 
-var server = null;
+let server = null;
 
-module.exports = async (serverPath) => {
+export default async (serverPath) => {
   return new Promise((resolve, reject) => {
     var resolvePending = true;
     if (server) server.kill('SIGTERM');
