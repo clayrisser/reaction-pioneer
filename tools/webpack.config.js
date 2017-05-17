@@ -1,8 +1,8 @@
-const _ = require('lodash');
-const nodeExternals = require('webpack-node-externals');
-const path = require('path');
-const webpack = require('webpack');
-const AssetsPlugin = require('assets-webpack-plugin');
+import _ from 'lodash';
+import nodeExternals from 'webpack-node-externals';
+import path from 'path';
+import webpack from 'webpack';
+import AssetsPlugin from 'assets-webpack-plugin';
 
 const DEBUG = !process.argv.includes('--release') && !process.argv.includes('build');
 const VERBOSE = process.argv.includes('--verbose');
@@ -194,4 +194,4 @@ const serverConfig = _.merge({}, config, {
   plugins: _.flatten([[], DEBUG ? [] : []])
 });
 
-module.exports = [clientConfig, serverConfig];
+export default [clientConfig, serverConfig];

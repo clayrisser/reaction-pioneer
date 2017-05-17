@@ -1,18 +1,18 @@
-const _ = require('lodash');
-const browserSync = require('browser-sync');
-const webpack = require('webpack');
-const webpackHotMiddleware = require('webpack-hot-middleware');
-const webpackMiddleware = require('webpack-middleware');
-const clean = require('./clean');
-const copy = require('./copy');
-const logger = require('./logger').withLabel;
-const run = require('./run');
-const runServer = require('./runServer');
+import _ from 'lodash';
+import browserSync from 'browser-sync';
+import webpack from 'webpack';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+import webpackMiddleware from 'webpack-middleware';
+import clean from './clean';
+import copy from './copy';
+import logger from './logger';
+import run from './run';
+import runServer from './runServer';
 
 const DEBUG = !process.argv.includes('--release');
 
-async function start() {
-  var webpackConfig = require('./webpack.config.js');
+export default async function start() {
+  let webpackConfig = require('./webpack.config.js').default;
   await run(clean);
   webpackConfig[0] = patchClientConfig(webpackConfig[0]);
   const bundler = webpack(webpackConfig);
@@ -28,12 +28,7 @@ async function start() {
   });
 }
 
-module.exports = {
-  name: 'start',
-  job: start
-};
-
-var handleBundleComplete = async (middleware, stats) => {
+let handleBundleComplete = async (middleware, stats) => {
   handleBundleComplete = (middleware, stats) => {
     !stats.stats[1].compilation.errors.length && runServer('./dist/server.js');
   };
@@ -53,8 +48,8 @@ function patchClientConfig(clientConfig) {
   clientConfig.entry = ['webpack-hot-middleware/client'].concat(clientConfig.entry);
   clientConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
   clientConfig.plugins.push(new webpack.NoEmitOnErrorsPlugin());
-  var babelLoader = _.filter(clientConfig.module.loaders, (loader) => loader.loader === 'babel-loader')[0];
-  var babelLoaderOptions = JSON.parse(babelLoader.options);
+  let babelLoader = _.filter(clientConfig.module.loaders, (loader) => loader.loader === 'babel-loader')[0];
+  let babelLoaderOptions = JSON.parse(babelLoader.options);
   babelLoaderOptions.plugins.push(['react-transform', {
     transforms: [
       {

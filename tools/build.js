@@ -1,11 +1,11 @@
-const webpack = require('webpack');
-const clean = require('./clean');
-const copy = require('./copy');
-const logger = require('./logger').noLabel;
-const run = require('./run');
+import webpack from 'webpack';
+import clean from './clean';
+import copy from './copy';
+import logger from './logger';
+import run from './run';
 
-async function build() {
-  var webpackConfig = require('./webpack.config.js');
+export default async function build() {
+  const webpackConfig = require('./webpack.config.js');
   await run(clean);
   return new Promise((resolve, reject) => {
     try {
@@ -22,8 +22,3 @@ async function build() {
     logger.error(err);
   });
 }
-
-module.exports = {
-  name: 'build',
-  job: build
-};
