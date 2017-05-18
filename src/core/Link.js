@@ -4,12 +4,14 @@ import _ from 'lodash';
 
 class Link extends Component {
   static defaultProps = {
+    inherit: false,
     onClick: null,
     style: {},
     to: '#'
   };
   static propTypes = {
     children: PropTypes.node.isRequired,
+    inherit: PropTypes.bool,
     onClick: PropTypes.func,
     style: PropTypes.object,
     to: PropTypes.string
@@ -18,7 +20,12 @@ class Link extends Component {
   state = {};
 
   render() {
-    let style = _.assign({}, this.props.style);
+    let style = {};
+    if (this.props.inherit) style = _.assign({}, style, {
+      color: 'inherit',
+      textDecoration: 'inherit'
+    });
+    style = _.assign({}, style, this.props.style);
     let to = this.props.to;
     let children = this.props.children;
     return (<a href={to} style={style} onClick={this.handleClick.bind(this)}>
