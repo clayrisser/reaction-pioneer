@@ -3,20 +3,31 @@ import { loadStyles, unmountStyles } from './styles';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import muiTheme from '../styles/muiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
-const contextTypes = {
-  insertCss: PropTypes.func.isRequired,
-  store: PropTypes.object.isRequired
-}
+import { mapStateToProps } from '../redux/configureStore';
+import { connect } from 'react-redux';
+import _ from 'lodash';
 
 class App extends Component {
-  static propTypes = {
-    context: PropTypes.shape(contextTypes).isRequired,
-    children: PropTypes.element.isRequired
-  };
-  static childContextTypes = contextTypes;
 
   state = {};
+  reduxStateKeys = [];
+
+  constructor(props) {
+    super(props);
+    let contextTypes = {
+      insertCss: PropTypes.func.isRequired,
+      store: PropTypes.object.isRequired
+    }
+    this.reduxStateKeys = _.keys(props.context.store.getState());
+    _.each(this.reduxStateKeys, (key) => {
+      contextTypes[key] = PropTypes[typeof props[key]];
+    });
+    this.constructor.propTypes = {
+      context: PropTypes.shape(contextTypes).isRequired,
+      children: PropTypes.element.isRequired
+    };
+    this.constructor.childContextTypes = contextTypes;
+  }
 
   componentWillMount() {
     loadStyles(this.props.context.insertCss);
@@ -27,6 +38,10 @@ class App extends Component {
   }
 
   getChildContext() {
+    let context = this.props.context;
+    _.each(this.reduxStateKeys, (key) => {
+      context[key] = this.props[key];
+    });
     return this.props.context;
   }
 
@@ -43,4 +58,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(mapStateToProps)(App);
