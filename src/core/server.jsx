@@ -13,6 +13,7 @@ import routes from '../routes';
 import configureStore from '../redux/configureStore';
 import assets from './assets';
 import ErrorReporter from './ErrorReporter';
+import { Provider } from 'react-redux';
 
 class Server {
   app = express();
@@ -48,7 +49,11 @@ class Server {
           res.redirect(route.status || 302, route.redirect);
           return;
         }
-        let children = ReactDOMServer.renderToString(<App context={this.context}>{route.component}</App>);
+        let children = ReactDOMServer.renderToString(<Provider store={this.context.store}>
+          <App context={this.context}>
+            {route.component}
+          </App>
+        </Provider>);
         let scripts = ['./client.js', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'];
         let html = ReactDOMServer.renderToStaticMarkup(<Html scripts={scripts} css={[...this.css].join('')}>{children}</Html>);
         return res.send(`<!doctype html>${html}`);

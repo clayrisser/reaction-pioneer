@@ -12,3 +12,9 @@ export default () => {
   }
   return createStore(rootReducer, initialState, middleware);
 };
+
+export const mapStateToProps = (state) => {
+  return {
+    location: state.location
+  };
+};

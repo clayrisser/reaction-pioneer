@@ -11,6 +11,7 @@ import RedboxReact from 'redbox-react';
 import deepForceUpdate from 'react-deep-force-update';
 import FastClick from 'fastclick';
 import { updateLocation } from '../redux/actions/location';
+import { Provider } from 'react-redux';
 let routes = require('../routes').default;
 
 class Client {
@@ -66,9 +67,11 @@ class Client {
         history.replace(route.redirect);
         return;
       }
-      this.appInstance = ReactDOM.render((<App context={this.context}>
-        {route.component}
-      </App>), this.container, this.onRenderComplete.bind(this, route, location));
+      this.appInstance = ReactDOM.render((<Provider store={this.context.store}>
+        <App context={this.context}>
+          {route.component}
+        </App>
+      </Provider>), this.container, this.onRenderComplete.bind(this, route, location));
     } catch(err) {
       this.handleError(err, `Error: ${err.message}`);
       if (action && currentLocation.key === location.key) window.location.reload();
