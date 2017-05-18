@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Link from '../../core/Link';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Home.scss';

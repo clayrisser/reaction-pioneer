@@ -1,4 +1,5 @@
-import React, { Children, Component, PropTypes, cloneElement } from 'react';
+import React, { Component, Children, cloneElement } from 'react';
+import PropTypes from 'prop-types';
 import { loadStyles, unmountStyles } from './styles';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import muiTheme from '../styles/muiTheme';
