@@ -1,4 +1,5 @@
-import React, { PropTypes, Component, Children, cloneElement } from 'react';
+import React, { Component, Children, cloneElement } from 'react';
+import PropTypes from 'prop-types';
 import { loadStyles, unmountStyles } from './styles';
 import { mapStateToProps } from '../redux/configureStore';
 import { connect } from 'react-redux';
