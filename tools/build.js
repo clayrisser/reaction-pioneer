@@ -5,7 +5,7 @@ import logger from './logger';
 import run from './run';
 
 export default async function build() {
-  const webpackConfig = require('./webpack.config.js');
+  const webpackConfig = require('./webpack.config.js').default;
   await run(clean);
   return new Promise((resolve, reject) => {
     try {
