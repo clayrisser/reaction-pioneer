@@ -43,7 +43,7 @@ class Html extends Component {
         <title>{config.title}</title>
       </head>
       <body style={style.body}>
-        <style type="text/css">${[...this.props.css].join('')}</style>
+        <style type="text/css">{[...this.props.css].join('')}</style>
         <div id="app" style={style.app} dangerouslySetInnerHTML={{__html: this.props.children}} />
         {this.props.scripts.map((script) => (<script key={script} src={script} />))}
       </body>
